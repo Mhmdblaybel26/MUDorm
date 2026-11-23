@@ -1,0 +1,949 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-page-lang>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#0b1d36" />
+    <meta name="description" content="" data-i18n-content="site.description" />
+    <title>MU Dorm</title>
+    <link rel="alternate" hreflang="ar" href="index.html" />
+    <link rel="alternate" hreflang="en" href="engindex.html" />
+    <link
+      rel="icon"
+      href="../manager/assets/favicon.svg"
+      type="image/svg+xml"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&family=Tajawal:wght@400;500;700&display=swap"
+    />
+    <!-- Same design system as the admin console -->
+    <link rel="stylesheet" href="../manager/css/base.css?v=20261123h" />
+    <link rel="stylesheet" href="../manager/css/components.css?v=20261123h" />
+    <link rel="stylesheet" href="../manager/css/rtl.css?v=20261123h" />
+    <link rel="stylesheet" href="MainPage.css?v=20261123h" />
+    <!-- Not deferred: applies language, direction and theme before the first paint. -->
+    <script src="i18n.js?v=20261123h"></script>
+    <script src="../manager/js/icons.js?v=20261123h" defer></script>
+    <script src="../manager/js/sound.js?v=20261123h" defer></script>
+    <script src="../manager/js/config.js?v=20261123h" defer></script>
+    <script src="../manager/js/api.js?v=20261123h" defer></script>
+    <script src="../manager/js/data.js?v=20261123h" defer></script>
+    <script src="main.js?v=20261123h" defer></script>
+  </head>
+  <body data-page="home" id="top">
+    <a class="skip-link" href="#main" data-i18n="a11y.skip"></a>
+
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="site-brand" href="#top">
+          <img
+            src="../manager/assets/logo.svg"
+            data-i18n-alt="site.logoAlt"
+            alt=""
+            width="64"
+            height="64"
+          />
+        </a>
+        <nav class="site-nav" id="site-nav" data-i18n-aria-label="nav.label">
+          <ul class="site-nav__links">
+            <li><a href="#overview" data-i18n="nav.overview"></a></li>
+            <li><a href="#rules" data-i18n="nav.rules"></a></li>
+            <li><a href="#gallery" data-i18n="nav.gallery"></a></li>
+            <li><a href="#apply" data-i18n="nav.apply"></a></li>
+            <li><a href="#contact" data-i18n="nav.contact"></a></li>
+          </ul>
+        </nav>
+        <a class="btn btn--accent site-header__login" href="../login/index.html"
+          ><span data-icon="lock" data-size="16"></span
+          ><span data-i18n="nav.login"></span
+        ></a>
+        <div class="site-header__tools" id="site-tools"></div>
+        <button
+          type="button"
+          class="icon-btn site-header__menu"
+          id="menu-toggle"
+          aria-controls="site-nav"
+          aria-expanded="false"
+          data-i18n-aria-label="nav.open"
+        >
+          <span data-icon="menu"></span>
+        </button>
+      </div>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <!-- Hero -->
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__media">
+          <img
+            class="hero__img"
+            src="photos/hero.jpg"
+            data-i18n-alt="hero.imgAlt"
+            alt=""
+            width="1920"
+            height="1080"
+            fetchpriority="high"
+          />
+        </div>
+        <div class="hero__shade" aria-hidden="true"></div>
+        <div class="container hero__content">
+          <p class="hero__eyebrow">
+            <span class="hero__dot" aria-hidden="true"></span
+            ><span data-i18n="hero.eyebrow"></span>
+          </p>
+          <h1 class="hero__title" id="hero-title">
+            <span data-i18n="hero.title1"></span
+            ><em data-i18n="hero.titleEm"></em
+            ><span data-i18n="hero.title2"></span>
+          </h1>
+          <p class="hero__lead" data-i18n="hero.lead"></p>
+          <div class="hero__actions">
+            <a class="btn btn--accent btn--lg" href="#apply"
+              ><span data-i18n="hero.apply"></span
+              ><span data-icon="arrow-right"></span
+            ></a>
+            <a class="btn btn--glass btn--lg" href="#overview"
+              ><span data-i18n="hero.explore"></span
+              ><span data-icon="arrow-down"></span
+            ></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Dormitory overview -->
+      <section class="section" id="overview" aria-labelledby="overview-title">
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="eyebrow" data-i18n="overview.eyebrow"></p>
+            <h2 class="section-title" id="overview-title">
+              <span data-i18n="overview.title"></span
+              ><em data-i18n="overview.titleEm"></em>
+            </h2>
+            <p class="section-lead" data-i18n="overview.lead"></p>
+          </header>
+          <ul class="features">
+            <li class="feature reveal">
+              <div class="feature__media">
+                <img
+                  src="illustrations/safety.svg"
+                  data-i18n-alt="overview.f1Alt"
+                  alt=""
+                  width="640"
+                  height="400"
+                  loading="lazy"
+                />
+              </div>
+              <div class="feature__body">
+                <span class="feature__icon"
+                  ><span data-icon="shield"></span
+                ></span>
+                <h3 data-i18n="overview.f1Title"></h3>
+                <p data-i18n="overview.f1Text"></p>
+              </div>
+            </li>
+            <li class="feature reveal">
+              <div class="feature__media">
+                <img
+                  src="illustrations/location.svg"
+                  data-i18n-alt="overview.f2Alt"
+                  alt=""
+                  width="640"
+                  height="400"
+                  loading="lazy"
+                />
+              </div>
+              <div class="feature__body">
+                <span class="feature__icon"
+                  ><span data-icon="map-pin"></span
+                ></span>
+                <h3 data-i18n="overview.f2Title"></h3>
+                <p data-i18n="overview.f2Text"></p>
+              </div>
+            </li>
+            <li class="feature reveal">
+              <div class="feature__media">
+                <img
+                  src="illustrations/room-double.svg"
+                  data-i18n-alt="overview.f3Alt"
+                  alt=""
+                  width="640"
+                  height="400"
+                  loading="lazy"
+                />
+              </div>
+              <div class="feature__body">
+                <span class="feature__icon"><span data-icon="bed"></span></span>
+                <h3 data-i18n="overview.f3Title"></h3>
+                <p data-i18n="overview.f3Text"></p>
+              </div>
+            </li>
+            <li class="feature reveal">
+              <div class="feature__media">
+                <img
+                  src="illustrations/dining.svg"
+                  data-i18n-alt="overview.f4Alt"
+                  alt=""
+                  width="640"
+                  height="400"
+                  loading="lazy"
+                />
+              </div>
+              <div class="feature__body">
+                <span class="feature__icon"
+                  ><span data-icon="utensils"></span
+                ></span>
+                <h3 data-i18n="overview.f4Title"></h3>
+                <p data-i18n="overview.f4Text"></p>
+              </div>
+            </li>
+            <li class="feature reveal">
+              <div class="feature__media">
+                <img
+                  src="illustrations/study-room.svg"
+                  data-i18n-alt="overview.f5Alt"
+                  alt=""
+                  width="640"
+                  height="400"
+                  loading="lazy"
+                />
+              </div>
+              <div class="feature__body">
+                <span class="feature__icon"
+                  ><span data-icon="book"></span
+                ></span>
+                <h3 data-i18n="overview.f5Title"></h3>
+                <p data-i18n="overview.f5Text"></p>
+              </div>
+            </li>
+            <li class="feature reveal">
+              <div class="feature__media">
+                <img
+                  src="illustrations/maintenance.svg"
+                  data-i18n-alt="overview.f6Alt"
+                  alt=""
+                  width="640"
+                  height="400"
+                  loading="lazy"
+                />
+              </div>
+              <div class="feature__body">
+                <span class="feature__icon"
+                  ><span data-icon="wrench"></span
+                ></span>
+                <h3 data-i18n="overview.f6Title"></h3>
+                <p data-i18n="overview.f6Text"></p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Rules and guidelines -->
+      <section
+        class="section section--tint"
+        id="rules"
+        aria-labelledby="rules-title"
+      >
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="eyebrow" data-i18n="rules.eyebrow"></p>
+            <h2 class="section-title" id="rules-title">
+              <span data-i18n="rules.title"></span
+              ><em data-i18n="rules.titleEm"></em>
+            </h2>
+            <p class="section-lead" data-i18n="rules.lead"></p>
+          </header>
+          <div class="rules-layout">
+            <ul class="rule-list">
+              <li class="rule reveal">
+                <span class="rule__icon"><span data-icon="clock"></span></span>
+                <div>
+                  <h3 data-i18n="rules.r1Title"></h3>
+                  <p data-i18n="rules.r1Text"></p>
+                </div>
+              </li>
+              <li class="rule reveal">
+                <span class="rule__icon"><span data-icon="moon"></span></span>
+                <div>
+                  <h3 data-i18n="rules.r2Title"></h3>
+                  <p data-i18n="rules.r2Text"></p>
+                </div>
+              </li>
+              <li class="rule reveal">
+                <span class="rule__icon"><span data-icon="users"></span></span>
+                <div>
+                  <h3 data-i18n="rules.r3Title"></h3>
+                  <p data-i18n="rules.r3Text"></p>
+                </div>
+              </li>
+              <li class="rule reveal">
+                <span class="rule__icon"
+                  ><span data-icon="luggage"></span
+                ></span>
+                <div>
+                  <h3 data-i18n="rules.r4Title"></h3>
+                  <p data-i18n="rules.r4Text"></p>
+                </div>
+              </li>
+              <li class="rule reveal">
+                <span class="rule__icon"
+                  ><span data-icon="sparkle"></span
+                ></span>
+                <div>
+                  <h3 data-i18n="rules.r5Title"></h3>
+                  <p data-i18n="rules.r5Text"></p>
+                </div>
+              </li>
+              <li class="rule reveal">
+                <span class="rule__icon"
+                  ><span data-icon="utensils"></span
+                ></span>
+                <div>
+                  <h3 data-i18n="rules.r6Title"></h3>
+                  <p data-i18n="rules.r6Text"></p>
+                </div>
+              </li>
+              <li class="rule reveal">
+                <span class="rule__icon"><span data-icon="wrench"></span></span>
+                <div>
+                  <h3 data-i18n="rules.r7Title"></h3>
+                  <p data-i18n="rules.r7Text"></p>
+                </div>
+              </li>
+              <li class="rule reveal">
+                <span class="rule__icon"><span data-icon="alert"></span></span>
+                <div>
+                  <h3 data-i18n="rules.r8Title"></h3>
+                  <p data-i18n="rules.r8Text"></p>
+                </div>
+              </li>
+            </ul>
+            <aside class="elig reveal" aria-labelledby="elig-title">
+              <h3 id="elig-title" data-i18n="rules.eligTitle"></h3>
+              <ul class="elig__list">
+                <li>
+                  <span data-icon="check-circle"></span
+                  ><span data-i18n="rules.elig1"></span>
+                </li>
+                <li>
+                  <span data-icon="check-circle"></span
+                  ><span data-i18n="rules.elig2"></span>
+                </li>
+                <li>
+                  <span data-icon="check-circle"></span
+                  ><span data-i18n="rules.elig3"></span>
+                </li>
+              </ul>
+              <p class="elig__note" data-i18n="rules.eligNote"></p>
+              <a
+                class="btn btn--accent btn--block"
+                href="#apply"
+                data-i18n="rules.eligCta"
+              ></a>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery: carousel, thumbnails and full-screen viewer -->
+      <section class="section" id="gallery" aria-labelledby="gallery-title">
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="eyebrow" data-i18n="gallery.eyebrow"></p>
+            <h2 class="section-title" id="gallery-title">
+              <span data-i18n="gallery.title"></span
+              ><em data-i18n="gallery.titleEm"></em>
+            </h2>
+            <p class="section-lead" data-i18n="gallery.lead"></p>
+          </header>
+          <div
+            class="chips gallery__filters"
+            id="gallery-filters"
+            role="group"
+            data-i18n-aria-label="gallery.filter"
+          >
+            <button
+              type="button"
+              class="chip"
+              data-filter="all"
+              aria-pressed="true"
+              data-i18n="gallery.all"
+            ></button>
+            <button
+              type="button"
+              class="chip"
+              data-filter="rooms"
+              aria-pressed="false"
+              data-i18n="gallery.rooms"
+            ></button>
+            <button
+              type="button"
+              class="chip"
+              data-filter="study"
+              aria-pressed="false"
+              data-i18n="gallery.study"
+            ></button>
+            <button
+              type="button"
+              class="chip"
+              data-filter="dining"
+              aria-pressed="false"
+              data-i18n="gallery.dining"
+            ></button>
+            <button
+              type="button"
+              class="chip"
+              data-filter="campus"
+              aria-pressed="false"
+              data-i18n="gallery.campus"
+            ></button>
+          </div>
+          <div
+            class="carousel reveal"
+            id="carousel"
+            role="region"
+            aria-roledescription="carousel"
+            data-i18n-aria-label="gallery.label"
+          >
+            <div class="carousel__stage" id="carousel-stage" tabindex="0">
+              <figure
+                class="slide"
+                data-cat="rooms"
+                role="group"
+                aria-roledescription="slide"
+              >
+                <img
+                  src="photos/room-double.jpg"
+                  data-i18n-alt="gallery.s1Alt"
+                  alt=""
+                  width="1400"
+                  height="875"
+                  loading="lazy"
+                />
+                <figcaption class="slide__caption">
+                  <strong data-i18n="gallery.s1Title"></strong
+                  ><span data-i18n="gallery.s1Text"></span>
+                </figcaption>
+              </figure>
+              <figure
+                class="slide"
+                data-cat="rooms"
+                role="group"
+                aria-roledescription="slide"
+              >
+                <img
+                  src="photos/room-triple.jpg"
+                  data-i18n-alt="gallery.s2Alt"
+                  alt=""
+                  width="1400"
+                  height="875"
+                  loading="lazy"
+                />
+                <figcaption class="slide__caption">
+                  <strong data-i18n="gallery.s2Title"></strong
+                  ><span data-i18n="gallery.s2Text"></span>
+                </figcaption>
+              </figure>
+              <figure
+                class="slide"
+                data-cat="study"
+                role="group"
+                aria-roledescription="slide"
+              >
+                <img
+                  src="photos/study-room.jpg"
+                  data-i18n-alt="gallery.s3Alt"
+                  alt=""
+                  width="1400"
+                  height="875"
+                  loading="lazy"
+                />
+                <figcaption class="slide__caption">
+                  <strong data-i18n="gallery.s3Title"></strong
+                  ><span data-i18n="gallery.s3Text"></span>
+                </figcaption>
+              </figure>
+              <figure
+                class="slide"
+                data-cat="study"
+                role="group"
+                aria-roledescription="slide"
+              >
+                <img
+                  src="photos/study-hall.jpg"
+                  data-i18n-alt="gallery.s4Alt"
+                  alt=""
+                  width="1400"
+                  height="875"
+                  loading="lazy"
+                />
+                <figcaption class="slide__caption">
+                  <strong data-i18n="gallery.s4Title"></strong
+                  ><span data-i18n="gallery.s4Text"></span>
+                </figcaption>
+              </figure>
+              <figure
+                class="slide"
+                data-cat="dining"
+                role="group"
+                aria-roledescription="slide"
+              >
+                <img
+                  src="photos/kitchen.jpg"
+                  data-i18n-alt="gallery.s5Alt"
+                  alt=""
+                  width="1400"
+                  height="875"
+                  loading="lazy"
+                />
+                <figcaption class="slide__caption">
+                  <strong data-i18n="gallery.s5Title"></strong
+                  ><span data-i18n="gallery.s5Text"></span>
+                </figcaption>
+              </figure>
+              <figure
+                class="slide"
+                data-cat="dining"
+                role="group"
+                aria-roledescription="slide"
+              >
+                <img
+                  src="photos/dining.jpg"
+                  data-i18n-alt="gallery.s6Alt"
+                  alt=""
+                  width="1400"
+                  height="875"
+                  loading="lazy"
+                />
+                <figcaption class="slide__caption">
+                  <strong data-i18n="gallery.s6Title"></strong
+                  ><span data-i18n="gallery.s6Text"></span>
+                </figcaption>
+              </figure>
+              <figure
+                class="slide"
+                data-cat="campus"
+                role="group"
+                aria-roledescription="slide"
+              >
+                <img
+                  src="photos/building.jpg"
+                  data-i18n-alt="gallery.s7Alt"
+                  alt=""
+                  width="1400"
+                  height="875"
+                  loading="lazy"
+                />
+                <figcaption class="slide__caption">
+                  <strong data-i18n="gallery.s7Title"></strong
+                  ><span data-i18n="gallery.s7Text"></span>
+                </figcaption>
+              </figure>
+              <figure
+                class="slide"
+                data-cat="campus"
+                role="group"
+                aria-roledescription="slide"
+              >
+                <img
+                  src="photos/garden.jpg"
+                  data-i18n-alt="gallery.s8Alt"
+                  alt=""
+                  width="1400"
+                  height="875"
+                  loading="lazy"
+                />
+                <figcaption class="slide__caption">
+                  <strong data-i18n="gallery.s8Title"></strong
+                  ><span data-i18n="gallery.s8Text"></span>
+                </figcaption>
+              </figure>
+            </div>
+            <p
+              class="carousel__count"
+              id="carousel-count"
+              aria-hidden="true"
+            ></p>
+            <span
+              class="carousel__progress"
+              id="carousel-progress"
+              aria-hidden="true"
+            ></span>
+            <button
+              type="button"
+              class="carousel__play"
+              id="carousel-play"
+              aria-pressed="true"
+            ></button>
+            <button
+              type="button"
+              class="carousel__expand"
+              id="carousel-expand"
+              data-i18n-aria-label="gallery.open"
+              data-i18n-title="gallery.open"
+            >
+              <span data-icon="expand"></span>
+            </button>
+            <button
+              type="button"
+              class="carousel__nav carousel__nav--prev"
+              id="carousel-prev"
+              data-i18n-aria-label="gallery.prev"
+            >
+              <span data-icon="chevron-left" data-size="22"></span>
+            </button>
+            <button
+              type="button"
+              class="carousel__nav carousel__nav--next"
+              id="carousel-next"
+              data-i18n-aria-label="gallery.next"
+            >
+              <span data-icon="chevron-right" data-size="22"></span>
+            </button>
+            <p class="sr-only" id="carousel-status" aria-live="polite"></p>
+          </div>
+          <div
+            class="thumbs"
+            id="thumbs"
+            role="group"
+            data-i18n-aria-label="gallery.thumbs"
+          ></div>
+          <p class="gallery__note" data-i18n="gallery.note"></p>
+        </div>
+      </section>
+
+      <!-- Photo band leading into the application form -->
+      <section class="photo-band" aria-labelledby="band-title">
+        <img
+          class="photo-band__img"
+          src="photos/campus.jpg"
+          data-i18n-alt="band.imgAlt"
+          alt=""
+          width="1920"
+          height="1080"
+          loading="lazy"
+        />
+        <div class="photo-band__shade" aria-hidden="true"></div>
+        <div class="container photo-band__content reveal">
+          <h2
+            class="photo-band__title"
+            id="band-title"
+            data-i18n="band.title"
+          ></h2>
+          <p class="photo-band__text" data-i18n="band.text"></p>
+          <a class="btn btn--accent btn--lg" href="#apply"
+            ><span data-i18n="hero.apply"></span
+            ><span data-icon="arrow-down"></span
+          ></a>
+        </div>
+      </section>
+
+      <!-- Housing application: the steps and the button that opens the form popup -->
+      <section
+        class="section section--tint"
+        id="apply"
+        aria-labelledby="apply-title"
+      >
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="eyebrow" data-i18n="apply.eyebrow"></p>
+            <h2 class="section-title" id="apply-title">
+              <span data-i18n="apply.title"></span
+              ><em data-i18n="apply.titleEm"></em>
+            </h2>
+            <p class="section-lead" data-i18n="apply.lead"></p>
+          </header>
+          <div class="apply">
+            <aside class="apply__steps reveal" aria-labelledby="steps-title">
+              <h3 id="steps-title" data-i18n="apply.stepsTitle"></h3>
+              <ol class="steps">
+                <li>
+                  <span class="steps__n" aria-hidden="true">1</span>
+                  <div>
+                    <strong data-i18n="apply.step1Title"></strong>
+                    <p data-i18n="apply.step1Text"></p>
+                  </div>
+                </li>
+                <li>
+                  <span class="steps__n" aria-hidden="true">2</span>
+                  <div>
+                    <strong data-i18n="apply.step2Title"></strong>
+                    <p data-i18n="apply.step2Text"></p>
+                  </div>
+                </li>
+                <li>
+                  <span class="steps__n" aria-hidden="true">3</span>
+                  <div>
+                    <strong data-i18n="apply.step3Title"></strong>
+                    <p data-i18n="apply.step3Text"></p>
+                  </div>
+                </li>
+              </ol>
+              <p class="apply__free">
+                <span data-icon="check-circle"></span
+                ><span data-i18n="apply.free"></span>
+              </p>
+            </aside>
+            <div class="card apply__card apply__start reveal">
+              <span class="tile"
+                ><span data-icon="clipboard" data-size="26"></span
+              ></span>
+              <h3 data-i18n="apply.startTitle"></h3>
+              <p data-i18n="apply.startText"></p>
+              <button
+                type="button"
+                class="btn btn--primary btn--lg"
+                data-open-apply
+              >
+                <span data-i18n="apply.open"></span
+                ><span data-icon="arrow-right" data-size="18"></span>
+              </button>
+              <p class="field__hint" data-i18n="apply.startHint"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="section" id="contact" aria-labelledby="contact-title">
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="eyebrow" data-i18n="contact.eyebrow"></p>
+            <h2 class="section-title" id="contact-title">
+              <span data-i18n="contact.title"></span
+              ><em data-i18n="contact.titleEm"></em>
+            </h2>
+          </header>
+          <ul class="contact-grid">
+            <li class="contact-card reveal">
+              <span class="tile"><span data-icon="mail"></span></span>
+              <h3 data-i18n="contact.email"></h3>
+              <a class="ltr" href="mailto:mudorm.office@gmail.com">mudorm.office@gmail.com</a>
+            </li>
+            <li class="contact-card reveal">
+              <span class="tile"><span data-icon="phone"></span></span>
+              <h3 data-i18n="contact.phone"></h3>
+              <a class="ltr" href="tel:+96176894518">+961 76 894 518</a>
+            </li>
+            <li class="contact-card reveal">
+              <span class="tile"><span data-icon="map-pin"></span></span>
+              <h3 data-i18n="contact.office"></h3>
+              <p data-i18n="contact.officeValue"></p>
+            </li>
+            <li class="contact-card reveal">
+              <span class="tile"><span data-icon="clock"></span></span>
+              <h3 data-i18n="contact.hours"></h3>
+              <p data-i18n="contact.hoursValue"></p>
+            </li>
+          </ul>
+          <div class="contact-map reveal" id="map">
+            <iframe
+              class="contact-map__frame"
+              src="https://maps.google.com/maps?q=Al%20Maaref%20University%2C%20Beirut&amp;z=15&amp;output=embed"
+              title=""
+              data-i18n-title="contact.mapTitle"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            ></iframe>
+            <div class="contact-map__bar">
+              <p class="contact-map__place">
+                <span data-icon="map-pin"></span
+                ><span data-i18n="contact.officeValue"></span>
+              </p>
+              <a
+                class="btn btn--secondary btn--sm"
+                href="https://www.google.com/maps/search/?api=1&amp;query=Al%20Maaref%20University%2C%20Beirut"
+                target="_blank"
+                rel="noopener"
+                ><span data-icon="external-link"></span
+                ><span data-i18n="contact.mapOpen"></span
+                ><span class="sr-only" data-i18n="footer.newTab"></span
+              ></a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <div class="site-footer__brand">
+          <img
+            class="site-footer__logo"
+            src="../manager/assets/logo.svg"
+            data-i18n-alt="site.logoAlt"
+            alt=""
+            width="96"
+            height="96"
+            loading="lazy"
+          />
+          <p data-i18n="footer.tagline"></p>
+          <!-- SOCIAL MEDIA: replace each href="..." with the page address of the dorm or the university.
+               Make the same change in index.html (Arabic) and engindex.html (English).
+               To remove a platform, delete its whole <li> ... </li> line. -->
+          <nav class="site-footer__social" aria-labelledby="footer-follow">
+            <p class="site-footer__follow" id="footer-follow" data-i18n="footer.follow"></p>
+            <ul class="social-links">
+              <li><a class="social-link social-link--facebook" href="https://www.facebook.com/" target="_blank" rel="noopener" data-i18n-title="social.facebook"><span data-icon="facebook"></span><span class="sr-only" data-i18n="social.facebook"></span><span class="sr-only" data-i18n="footer.newTab"></span></a></li>
+              <li><a class="social-link social-link--instagram" href="https://www.instagram.com/" target="_blank" rel="noopener" data-i18n-title="social.instagram"><span data-icon="instagram"></span><span class="sr-only" data-i18n="social.instagram"></span><span class="sr-only" data-i18n="footer.newTab"></span></a></li>
+              <li><a class="social-link social-link--linkedin" href="https://www.linkedin.com/" target="_blank" rel="noopener" data-i18n-title="social.linkedin"><span data-icon="linkedin"></span><span class="sr-only" data-i18n="social.linkedin"></span><span class="sr-only" data-i18n="footer.newTab"></span></a></li>
+              <li><a class="social-link social-link--x" href="https://x.com/" target="_blank" rel="noopener" data-i18n-title="social.x"><span data-icon="x-logo"></span><span class="sr-only" data-i18n="social.x"></span><span class="sr-only" data-i18n="footer.newTab"></span></a></li>
+              <li><a class="social-link social-link--youtube" href="https://www.youtube.com/" target="_blank" rel="noopener" data-i18n-title="social.youtube"><span data-icon="youtube"></span><span class="sr-only" data-i18n="social.youtube"></span><span class="sr-only" data-i18n="footer.newTab"></span></a></li>
+            </ul>
+          </nav>
+        </div>
+        <nav aria-labelledby="footer-explore">
+          <h2 id="footer-explore" data-i18n="footer.explore"></h2>
+          <ul>
+            <li><a href="#overview" data-i18n="nav.overview"></a></li>
+            <li><a href="#rules" data-i18n="nav.rules"></a></li>
+            <li><a href="#gallery" data-i18n="nav.gallery"></a></li>
+            <li><a href="#apply" data-i18n="nav.apply"></a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="footer-account">
+          <h2 id="footer-account" data-i18n="footer.account"></h2>
+          <ul>
+            <li><a href="../login/index.html" data-i18n="nav.login"></a></li>
+            <li><a href="#contact" data-i18n="nav.contact"></a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="footer-links">
+          <h2 id="footer-links" data-i18n="footer.links"></h2>
+          <ul>
+            <li>
+              <a href="https://www.mu.edu.lb" target="_blank" rel="noopener"
+                ><span data-i18n="footer.muSite"></span>
+                <span class="ltr">www.mu.edu.lb</span
+                ><span class="sr-only" data-i18n="footer.newTab"></span
+              ></a>
+            </li>
+            <li><a href="engindex.html" data-i18n="footer.dormSite"></a></li>
+            <li>
+              <a class="ltr" href="mailto:mudorm.office@gmail.com">mudorm.office@gmail.com</a>
+            </li>
+            <li><a class="ltr" href="tel:+96176894518">+961 76 894 518</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="container site-footer__bottom">
+        <p id="footer-rights"></p>
+        <a class="site-footer__top" href="#top"
+          ><span data-icon="arrow-up"></span><span data-i18n="footer.top"></span
+        ></a>
+      </div>
+    </footer>
+
+    <dialog
+      class="lightbox"
+      id="lightbox"
+      data-i18n-aria-label="gallery.viewer"
+    >
+      <div class="lightbox__bar">
+        <p class="lightbox__count" id="lightbox-count"></p>
+        <button
+          type="button"
+          class="icon-btn"
+          id="lightbox-close"
+          data-i18n-aria-label="gallery.close"
+          autofocus
+        >
+          <span data-icon="x" data-size="22"></span>
+        </button>
+      </div>
+      <div class="lightbox__stage">
+        <img id="lightbox-img" alt="" />
+        <button
+          type="button"
+          class="carousel__nav carousel__nav--prev"
+          id="lightbox-prev"
+          data-i18n-aria-label="gallery.prev"
+        >
+          <span data-icon="chevron-left" data-size="22"></span>
+        </button>
+        <button
+          type="button"
+          class="carousel__nav carousel__nav--next"
+          id="lightbox-next"
+          data-i18n-aria-label="gallery.next"
+        >
+          <span data-icon="chevron-right" data-size="22"></span>
+        </button>
+      </div>
+      <p class="lightbox__caption" id="lightbox-caption" aria-live="polite"></p>
+    </dialog>
+    <!-- Housing application form (popup) -->
+    <dialog
+      class="modal modal--lg apply-dialog"
+      id="apply-modal"
+      aria-labelledby="apply-modal-title"
+    >
+      <div class="modal__head">
+        <div>
+          <h2
+            class="modal__title"
+            id="apply-modal-title"
+            data-i18n="apply.formTitle"
+          ></h2>
+          <p class="modal__sub" data-i18n="apply.required"></p>
+        </div>
+        <button
+          type="button"
+          class="icon-btn"
+          id="apply-close"
+          data-i18n-aria-label="apply.close"
+        >
+          <span data-icon="x"></span>
+        </button>
+      </div>
+      <div class="modal__body">
+        <form
+          class="apply__form"
+          id="apply-form"
+          novalidate
+          aria-labelledby="apply-modal-title"
+        >
+          <!-- The fields are drawn by main.js from the form the dorm office set up (admin "Application form"). -->
+          <div class="apply__fields" id="apply-fields"></div>
+          <div
+            class="notice notice--danger"
+            id="apply-error"
+            role="alert"
+            tabindex="-1"
+            hidden
+          ></div>
+          <div>
+            <button type="submit" class="btn btn--primary btn--lg">
+              <span data-icon="check" data-size="18"></span
+              ><span data-i18n="apply.submit"></span>
+            </button>
+          </div>
+        </form>
+        <div class="apply__success" id="apply-success" tabindex="-1" hidden>
+          <span class="tile"
+            ><span data-icon="check-circle" data-size="28"></span
+          ></span>
+          <h3 data-i18n="apply.successTitle"></h3>
+          <p id="apply-success-text"></p>
+          <button
+            type="button"
+            class="btn btn--primary"
+            id="apply-done"
+            data-i18n="apply.done"
+          ></button>
+          <button
+            type="button"
+            class="btn btn--secondary"
+            id="apply-again"
+            data-i18n="apply.another"
+          ></button>
+        </div>
+      </div>
+    </dialog>
+  </body>
+</html>
