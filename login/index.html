@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#0b1d36" />
+    <title>MU Dorm</title>
+    <link
+      rel="icon"
+      href="../manager/assets/favicon.svg"
+      type="image/svg+xml"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&family=Tajawal:wght@400;500;700&display=swap"
+    />
+    <link rel="stylesheet" href="../manager/css/base.css?v=20261123h" />
+    <link rel="stylesheet" href="../manager/css/layout.css?v=20261123h" />
+    <link rel="stylesheet" href="../manager/css/components.css?v=20261123h" />
+    <link rel="stylesheet" href="../manager/css/rtl.css?v=20261123h" />
+    <!-- Not deferred: applies the saved language, direction and theme before the first paint. -->
+    <script src="../main%20page/i18n.js?v=20261123h"></script>
+    <script src="../manager/js/icons.js?v=20261123h" defer></script>
+    <script src="../manager/js/sound.js?v=20261123h" defer></script>
+    <script src="../manager/js/config.js?v=20261123h" defer></script>
+    <script src="../manager/js/api.js?v=20261123h" defer></script>
+    <script src="../manager/js/data.js?v=20261123h" defer></script>
+    <script src="../main%20page/main.js?v=20261123h" defer></script>
+    <script src="login.js?v=20261123h" defer></script>
+  </head>
+  <body data-page="login">
+    <a class="skip-link" href="#login-form" data-i18n="a11y.skipForm"></a>
+
+    <div class="auth">
+      <section class="auth__brand" aria-labelledby="brand-title">
+        <a
+          class="auth__logo-link"
+          href="../main%20page/engindex.html"
+          data-home-link
+        >
+          <span class="auth__logo"
+            ><img
+              src="../manager/assets/logo.svg"
+              data-i18n-alt="site.logoAlt"
+              alt=""
+              width="80"
+              height="80"
+          /></span>
+        </a>
+        <div>
+          <h2 class="auth__title" id="brand-title">
+            <span data-i18n="login.brandTitle"></span>
+            <em data-i18n="login.brandEm"></em>
+          </h2>
+          <p class="auth__lead" data-i18n="login.brandLead"></p>
+        </div>
+        <ul class="auth__points">
+          <li>
+            <span data-icon="utensils"></span
+            ><span data-i18n="login.point1"></span>
+          </li>
+          <li>
+            <span data-icon="wrench"></span
+            ><span data-i18n="login.point2"></span>
+          </li>
+          <li>
+            <span data-icon="luggage"></span
+            ><span data-i18n="login.point3"></span>
+          </li>
+        </ul>
+        <p class="auth__uni" data-i18n="site.uni"></p>
+      </section>
+
+      <main class="auth__panel" id="main">
+        <div class="auth__tools" id="auth-tools"></div>
+        <div class="auth__form-wrap">
+          <h1 class="auth__heading" data-i18n="login.heading"></h1>
+          <p class="auth__sub" data-i18n="login.sub"></p>
+
+          <div
+            class="stack"
+            id="login-result"
+            role="status"
+            aria-live="polite"
+          ></div>
+
+          <form class="auth__form" id="login-form" novalidate>
+            <div class="field">
+              <label
+                class="field__label"
+                for="login-username"
+                data-i18n="login.username"
+              ></label>
+              <input
+                class="control"
+                id="login-username"
+                name="username"
+                type="text"
+                autocomplete="username"
+                autocapitalize="none"
+                spellcheck="false"
+                dir="ltr"
+                required
+              />
+            </div>
+            <div class="field">
+              <label
+                class="field__label"
+                for="login-password"
+                data-i18n="login.password"
+              ></label>
+              <div class="password-wrap">
+                <input
+                  class="control"
+                  id="login-password"
+                  name="password"
+                  type="password"
+                  autocomplete="current-password"
+                  required
+                />
+                <button
+                  type="button"
+                  class="icon-btn"
+                  id="toggle-password"
+                  aria-controls="login-password"
+                  aria-pressed="false"
+                  data-i18n-aria-label="login.show"
+                >
+                  <span data-icon="eye"></span>
+                </button>
+              </div>
+            </div>
+            <label class="check"
+              ><input type="checkbox" name="remember" /><span
+                data-i18n="login.remember"
+              ></span
+            ></label>
+            <button type="submit" class="btn btn--primary btn--block">
+              <span data-icon="lock" data-size="16"></span
+              ><span data-i18n="login.submit"></span>
+            </button>
+          </form>
+
+          <!-- Shown to a signed-in student: change the password (required after a temporary one). -->
+          <form
+            class="auth__form card card--pad"
+            id="password-form"
+            novalidate
+            hidden
+            aria-labelledby="password-title"
+          >
+            <h2
+              class="card__title"
+              id="password-title"
+              data-i18n="login.changeTitle"
+            ></h2>
+            <input type="text" name="username" autocomplete="username" hidden />
+            <div class="field">
+              <label
+                class="field__label"
+                for="pw-current"
+                data-i18n="login.current"
+              ></label>
+              <input
+                class="control"
+                id="pw-current"
+                name="current"
+                type="password"
+                autocomplete="current-password"
+                required
+              />
+            </div>
+            <div class="field">
+              <label
+                class="field__label"
+                for="pw-new"
+                data-i18n="login.newPassword"
+              ></label>
+              <input
+                class="control"
+                id="pw-new"
+                name="password"
+                type="password"
+                autocomplete="new-password"
+                required
+                aria-describedby="pw-rules"
+              />
+              <ul class="rules" id="pw-rules" aria-live="polite"></ul>
+            </div>
+            <div class="field">
+              <label
+                class="field__label"
+                for="pw-confirm"
+                data-i18n="login.confirm"
+              ></label>
+              <input
+                class="control"
+                id="pw-confirm"
+                name="confirm"
+                type="password"
+                autocomplete="new-password"
+                required
+              />
+            </div>
+            <div class="auth__row">
+              <button
+                type="button"
+                class="btn btn--ghost"
+                id="pw-logout"
+                data-i18n="login.logout"
+              ></button>
+              <button
+                type="submit"
+                class="btn btn--primary"
+                data-i18n="login.savePassword"
+              ></button>
+            </div>
+          </form>
+
+          <p class="auth__links" id="no-account">
+            <strong data-i18n="login.noAccount"></strong>
+            <span data-i18n="login.noAccountText"></span>
+            <a
+              href="../main%20page/engindex.html#apply"
+              data-home-link
+              data-hash="#apply"
+              data-i18n="login.applyLink"
+            ></a>
+          </p>
+
+          <p class="auth__links">
+            <a
+              href="../main%20page/engindex.html"
+              data-home-link
+              data-i18n="login.backSite"
+            ></a>
+          </p>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
