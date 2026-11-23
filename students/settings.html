@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>MU Dorm</title>
+  <link rel="icon" href="../manager/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&family=Tajawal:wght@400;500;700&display=swap">
+  <!-- Same design system and shell as the admin console -->
+  <link rel="stylesheet" href="../manager/css/base.css?v=20261123h">
+  <link rel="stylesheet" href="../manager/css/layout.css?v=20261123h">
+  <link rel="stylesheet" href="../manager/css/components.css?v=20261123h">
+  <link rel="stylesheet" href="../manager/css/rtl.css?v=20261123h">
+  <link rel="stylesheet" href="css/portal.css?v=20261123h">
+  <!-- Not deferred: applies the saved language, direction and theme before the first paint. -->
+  <script src="../manager/js/i18n.js?v=20261123h"></script>
+  <script src="../manager/js/icons.js?v=20261123h" defer></script>
+  <script src="../manager/js/sound.js?v=20261123h" defer></script>
+  <script src="../manager/js/config.js?v=20261123h" defer></script>
+  <script src="../manager/js/api.js?v=20261123h" defer></script>
+  <script src="../manager/js/data.js?v=20261123h" defer></script>
+  <script src="../manager/js/translate.js?v=20261123h" defer></script>
+  <script src="../manager/js/app.js?v=20261123h" defer></script>
+  <script src="js/portal.js?v=20261123h" defer></script>
+  <script src="js/settings.js?v=20261123h" defer></script>
+</head>
+<body data-area="student" data-page="settings">
+  <a class="skip-link" href="#main" data-i18n="a11y.skip"></a>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="scrim" id="scrim" hidden></div>
+    <div class="app__body">
+      <header class="topbar" id="topbar"></header>
+
+      <main class="main" id="main" tabindex="-1">
+        <div class="page-head">
+          <div class="page-head__text">
+            <h1 class="page-title" data-i18n="snav.settings"></h1>
+            <p class="page-sub" data-i18n="sset.sub"></p>
+          </div>
+        </div>
+        <div class="segmented" role="group" data-i18n-aria-label="sset.tabs" id="tabs">
+          <button type="button" data-tab="settings" aria-pressed="true" aria-controls="panel-settings" data-i18n="sset.tabSettings"></button>
+          <button type="button" data-tab="profile" aria-pressed="false" aria-controls="panel-profile" data-i18n="snav.profile"></button>
+        </div>
+
+        <div id="panel-settings">
+          <div class="settings-grid">
+          <div class="settings-col">
+            <section class="card" aria-labelledby="photo-title">
+              <div class="card__head"><div><h2 class="card__title" id="photo-title" data-i18n="sset.photoTitle"></h2><p class="card__sub" data-i18n="sset.photoSub"></p></div></div>
+              <form class="card__body stack" id="photo-form" novalidate>
+                <div class="field">
+                  <span class="field__label" id="avatar-label" data-i18n="sset.photo"></span>
+                  <div class="upload">
+                    <div class="upload__preview upload__preview--round" id="avatar-preview"></div>
+                    <div class="upload__actions">
+                      <input class="upload__input" id="avatar-input" name="avatar" type="file" accept="image/jpeg,image/png,image/webp,image/gif" aria-describedby="avatar-label avatar-hint">
+                      <label class="btn btn--secondary btn--sm" for="avatar-input"><span data-icon="upload" data-size="16"></span><span data-i18n="sset.choosePhoto"></span></label>
+                      <button type="button" class="btn btn--ghost btn--sm" id="avatar-remove" data-i18n="sset.removePhoto" hidden></button>
+                      <p class="field__hint" id="avatar-hint" data-i18n="sset.photoHint"></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-actions"><button type="submit" class="btn btn--primary" id="photo-save" data-i18n="sset.savePhoto"></button></div>
+              </form>
+            </section>
+            <section class="card" aria-labelledby="look-title">
+              <div class="card__head"><div><h2 class="card__title" id="look-title" data-i18n="sset.lookTitle"></h2><p class="card__sub" data-i18n="sset.lookSub"></p></div></div>
+              <div class="card__body stack">
+                <div class="field">
+                  <label class="field__label" for="pref-theme" data-i18n="sset.theme"></label>
+                  <select class="control" id="pref-theme">
+                    <option value="system" data-i18n="sset.themeSystem"></option>
+                    <option value="light" data-i18n="sset.themeLight"></option>
+                    <option value="dark" data-i18n="sset.themeDark"></option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="pref-lang" data-i18n="sset.language"></label>
+                  <select class="control" id="pref-lang">
+                    <option value="en" lang="en">English</option>
+                    <option value="ar" lang="ar">العربية</option>
+                  </select>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div class="settings-col">
+            <section class="card" aria-labelledby="password-title">
+              <div class="card__head"><div><h2 class="card__title" id="password-title" data-i18n="sset.passwordTitle"></h2><p class="card__sub" data-i18n="sset.passwordSub"></p></div></div>
+              <form class="card__body stack" id="password-form" novalidate>
+                <input type="text" name="username" autocomplete="username" hidden>
+                <div class="field">
+                  <label class="field__label" for="pw-current"><span data-i18n="sset.current"></span><span class="field__req" aria-hidden="true">*</span></label>
+                  <input class="control" id="pw-current" name="current" type="password" required autocomplete="current-password">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="pw-new"><span data-i18n="sset.newPassword"></span><span class="field__req" aria-hidden="true">*</span></label>
+                  <input class="control" id="pw-new" name="password" type="password" required autocomplete="new-password" aria-describedby="pw-rules">
+                  <ul class="rules" id="pw-rules" aria-live="polite"></ul>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="pw-confirm"><span data-i18n="sset.confirm"></span><span class="field__req" aria-hidden="true">*</span></label>
+                  <input class="control" id="pw-confirm" name="confirm" type="password" required autocomplete="new-password">
+                </div>
+                <div class="form-actions"><button type="submit" class="btn btn--primary" data-i18n="sset.savePassword"></button></div>
+              </form>
+            </section>
+            <section class="card" aria-labelledby="alerts-title">
+              <div class="card__head"><div><h2 class="card__title" id="alerts-title" data-i18n="sset.alertsTitle"></h2><p class="card__sub" data-i18n="sset.alertsSub"></p></div></div>
+              <div class="card__body stack">
+                <div class="field">
+                  <label class="field__label" for="pref-sound" data-i18n="sset.sound"></label>
+                  <select class="control" id="pref-sound">
+                    <option value="on" data-i18n="sset.on"></option>
+                    <option value="off" data-i18n="sset.off"></option>
+                  </select>
+                </div>
+                <div class="field">
+                  <span class="field__label" data-i18n="sset.desktop"></span>
+                  <p class="field__hint" id="desktop-status" aria-live="polite"></p>
+                  <div><button type="button" class="btn btn--secondary btn--sm" id="desktop-toggle"></button></div>
+                </div>
+              </div>
+            </section>
+          </div>
+          </div>
+        </div>
+
+        <div class="stack" id="panel-profile" hidden>
+          <div class="notice notice--accent">
+            <span data-icon="lock"></span>
+            <div><strong data-i18n="sprof.lockedTitle"></strong><span data-i18n="sprof.lockedText"></span> <a class="ltr" id="office-mail"></a></div>
+          </div>
+          <section class="card card--pad stack" aria-labelledby="me-title">
+            <h2 class="sr-only" id="me-title" data-i18n="sprof.account"></h2>
+            <div class="profile-head" id="me-head"></div>
+            <dl class="kv" id="me-details"></dl>
+          </section>
+          <p><a class="btn btn--secondary" href="health.html"><span data-icon="heart" data-size="16"></span><span data-i18n="sprof.toHealth"></span></a></p>
+        </div>
+      </main>
+
+      <footer class="app-footer" data-i18n="app.footerStudent"></footer>
+    </div>
+  </div>
+</body>
+</html>

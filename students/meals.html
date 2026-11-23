@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>MU Dorm</title>
+  <link rel="icon" href="../manager/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&family=Tajawal:wght@400;500;700&display=swap">
+  <!-- Same design system and shell as the admin console -->
+  <link rel="stylesheet" href="../manager/css/base.css?v=20261123h">
+  <link rel="stylesheet" href="../manager/css/layout.css?v=20261123h">
+  <link rel="stylesheet" href="../manager/css/components.css?v=20261123h">
+  <link rel="stylesheet" href="../manager/css/rtl.css?v=20261123h">
+  <link rel="stylesheet" href="css/portal.css?v=20261123h">
+  <!-- Not deferred: applies the saved language, direction and theme before the first paint. -->
+  <script src="../manager/js/i18n.js?v=20261123h"></script>
+  <script src="../manager/js/icons.js?v=20261123h" defer></script>
+  <script src="../manager/js/sound.js?v=20261123h" defer></script>
+  <script src="../manager/js/config.js?v=20261123h" defer></script>
+  <script src="../manager/js/api.js?v=20261123h" defer></script>
+  <script src="../manager/js/data.js?v=20261123h" defer></script>
+  <script src="../manager/js/translate.js?v=20261123h" defer></script>
+  <script src="../manager/js/app.js?v=20261123h" defer></script>
+  <script src="js/portal.js?v=20261123h" defer></script>
+  <script src="js/meals.js?v=20261123h" defer></script>
+</head>
+<body data-area="student" data-page="meals">
+  <a class="skip-link" href="#main" data-i18n="a11y.skip"></a>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="scrim" id="scrim" hidden></div>
+    <div class="app__body">
+      <header class="topbar" id="topbar"></header>
+
+      <main class="main" id="main" tabindex="-1">
+        <div class="page-head">
+          <div class="page-head__text">
+            <h1 class="page-title" data-i18n="snav.meals"></h1>
+            <p class="page-sub" data-i18n="smeal.sub"></p>
+          </div>
+        </div>
+
+        <div class="stack" id="meal-notices"></div>
+
+        <section class="countdown" id="countdown" aria-labelledby="countdown-label">
+          <div>
+            <p class="countdown__label" id="countdown-label"></p>
+            <p class="countdown__time" id="countdown-time" role="timer" aria-live="off"></p>
+            <p class="countdown__label" id="countdown-next"></p>
+          </div>
+          <div class="countdown__bar" aria-hidden="true"><span id="countdown-bar"></span></div>
+          <p class="sr-only" id="countdown-status" aria-live="polite"></p>
+        </section>
+
+        <section class="card" aria-labelledby="today-title">
+          <div class="card__head">
+            <div><h2 class="card__title" id="today-title" data-i18n="smeal.todayTitle"></h2><p class="card__sub" id="today-sub"></p></div>
+          </div>
+          <div class="card__body"><ul class="today-meals" id="today-meals"></ul></div>
+        </section>
+
+        <section class="card" aria-labelledby="pick-title">
+          <div class="card__head">
+            <div><h2 class="card__title" id="pick-title" data-i18n="smeal.pickTitle"></h2><p class="card__sub" id="pick-sub"></p></div>
+          </div>
+          <div class="card__body stack">
+            <div class="days" id="days" role="group" data-i18n-aria-label="smeal.daysLabel"></div>
+            <div id="meal-state" role="status" aria-live="polite"></div>
+            <div class="meal-groups" id="meal-groups"></div>
+            <div class="form-actions" id="meal-actions"></div>
+          </div>
+        </section>
+
+        <section class="card" id="history" aria-labelledby="history-title">
+          <div class="card__head"><h2 class="card__title" id="history-title" data-i18n="smeal.history"></h2></div>
+          <div class="table-wrap" data-list-table>
+            <table class="table table--stack">
+              <thead><tr><th scope="col" data-i18n="common.date"></th><th scope="col" data-i18n="smeal.meal"></th><th scope="col" data-i18n="smeal.dish"></th><th scope="col" class="num" data-i18n="smeal.portions"></th><th scope="col" data-i18n="common.status"></th></tr></thead>
+              <tbody data-list-body></tbody>
+            </table>
+          </div>
+          <div data-list-empty hidden></div>
+          <div class="pagination" data-list-pager></div>
+        </section>
+      </main>
+
+      <footer class="app-footer" data-i18n="app.footerStudent"></footer>
+    </div>
+  </div>
+</body>
+</html>

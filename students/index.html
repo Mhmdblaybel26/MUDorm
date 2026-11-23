@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>MU Dorm</title>
+  <link rel="icon" href="../manager/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&family=Tajawal:wght@400;500;700&display=swap">
+  <!-- Same design system and shell as the admin console -->
+  <link rel="stylesheet" href="../manager/css/base.css?v=20261123h">
+  <link rel="stylesheet" href="../manager/css/layout.css?v=20261123h">
+  <link rel="stylesheet" href="../manager/css/components.css?v=20261123h">
+  <link rel="stylesheet" href="../manager/css/rtl.css?v=20261123h">
+  <link rel="stylesheet" href="css/portal.css?v=20261123h">
+  <!-- Not deferred: applies the saved language, direction and theme before the first paint. -->
+  <script src="../manager/js/i18n.js?v=20261123h"></script>
+  <!-- qrcode-generator 1.4.4 (MIT), kept with the site so the dorm pass works offline. -->
+  <script src="vendor/qrcode-generator-1.4.4.min.js" integrity="sha384-mZT2gIty7ZDdOGkxfP6joZcYdMW1Jvj9dRlfpTmaJAKKXTqzygtB22k7FLe+KZC1" defer></script>
+  <script src="../manager/js/icons.js?v=20261123h" defer></script>
+  <script src="../manager/js/sound.js?v=20261123h" defer></script>
+  <script src="../manager/js/config.js?v=20261123h" defer></script>
+  <script src="../manager/js/api.js?v=20261123h" defer></script>
+  <script src="../manager/js/data.js?v=20261123h" defer></script>
+  <script src="../manager/js/translate.js?v=20261123h" defer></script>
+  <script src="../manager/js/app.js?v=20261123h" defer></script>
+  <script src="js/portal.js?v=20261123h" defer></script>
+  <script src="js/home.js?v=20261123h" defer></script>
+</head>
+<body data-area="student" data-page="home">
+  <a class="skip-link" href="#main" data-i18n="a11y.skip"></a>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="scrim" id="scrim" hidden></div>
+    <div class="app__body">
+      <header class="topbar" id="topbar"></header>
+
+      <main class="main" id="main" tabindex="-1">
+        <div class="page-head">
+          <div class="page-head__text">
+            <h1 class="page-title" id="home-title"></h1>
+            <p class="page-sub" data-i18n="shome.sub"></p>
+          </div>
+        </div>
+
+        <div class="home-grid">
+          <div class="stack">
+            <section aria-labelledby="room-title">
+              <h2 class="sr-only" id="room-title" data-i18n="shome.roomTitle"></h2>
+              <div id="room"></div>
+            </section>
+            <section class="card" aria-labelledby="mates-title">
+              <div class="card__head"><div><h2 class="card__title" id="mates-title" data-i18n="shome.mates"></h2><p class="card__sub" data-i18n="shome.matesSub"></p></div></div>
+              <div class="card__body" id="mates"></div>
+            </section>
+            <section aria-labelledby="quick-title">
+              <h2 class="sr-only" id="quick-title" data-i18n="shome.quick"></h2>
+              <div class="quick" id="quick"></div>
+            </section>
+          </div>
+          <section aria-labelledby="pass-title">
+            <h2 class="sr-only" id="pass-title" data-i18n="shome.pass"></h2>
+            <div id="pass"></div>
+          </section>
+        </div>
+      </main>
+
+      <footer class="app-footer" data-i18n="app.footerStudent"></footer>
+    </div>
+  </div>
+
+  <dialog class="modal pass-dialog" id="pass-modal" aria-labelledby="pass-big-title">
+    <div class="pass">
+      <div class="pass__head">
+        <h2 class="card__title" id="pass-big-title" data-i18n="shome.passBig"></h2>
+        <button type="button" class="icon-btn" data-close data-i18n-aria-label="common.close" autofocus><span data-icon="x"></span></button>
+      </div>
+      <div class="pass__qr" id="pass-big-qr"></div>
+      <p class="pass__code" id="pass-big-code"></p>
+      <p class="pass__foot" data-i18n="shome.passHint"></p>
+    </div>
+  </dialog>
+
+  <!-- Printed only: the housing card (front and back). Filled by js/home.js. -->
+  <div class="idcard-sheet" id="id-card" aria-hidden="true"></div>
+</body>
+</html>
