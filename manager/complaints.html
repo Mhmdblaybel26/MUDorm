@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>DMS</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&family=Tajawal:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="css/base.css?v=20261123h">
+  <link rel="stylesheet" href="css/layout.css?v=20261123h">
+  <link rel="stylesheet" href="css/components.css?v=20261123h">
+  <link rel="stylesheet" href="css/rtl.css?v=20261123h">
+  <script src="js/i18n.js?v=20261123h"></script>
+  <script src="js/icons.js?v=20261123h" defer></script>
+  <script src="js/sound.js?v=20261123h" defer></script>
+  <script src="js/config.js?v=20261123h" defer></script>
+  <script src="js/api.js?v=20261123h" defer></script>
+  <script src="js/data.js?v=20261123h" defer></script>
+  <script src="js/translate.js?v=20261123h" defer></script>
+  <script src="js/app.js?v=20261123h" defer></script>
+  <script src="js/complaints.js?v=20261123h" defer></script>
+</head>
+<body data-page="complaints">
+  <a class="skip-link" href="#main" data-i18n="a11y.skip"></a>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="scrim" id="scrim" hidden></div>
+    <div class="app__body">
+      <header class="topbar" id="topbar"></header>
+
+      <main class="main" id="main" tabindex="-1">
+        <div class="page-head">
+          <div class="page-head__text">
+            <h1 class="page-title" data-i18n="nav.complaints"></h1>
+            <p class="page-sub" data-i18n="complaints.sub"></p>
+          </div>
+        </div>
+
+        <div class="chips" id="status-chips" role="group" data-i18n-aria-label="common.quickFilter"></div>
+
+        <section class="card" id="ticket-list" aria-labelledby="ticket-list-title">
+          <h2 class="sr-only" id="ticket-list-title" data-i18n="complaints.listTitle"></h2>
+          <div class="toolbar">
+            <div class="toolbar__search">
+              <span data-icon="search"></span>
+              <label class="sr-only" for="ticket-search" data-i18n="common.search"></label>
+              <input class="control" id="ticket-search" type="search" autocomplete="off" data-list-search data-i18n-placeholder="complaints.searchPh">
+            </div>
+            <label class="sr-only" for="ticket-status" data-i18n="common.status"></label>
+            <select class="control" id="ticket-status" data-list-filter="status">
+              <option value="all" data-i18n="common.allStatuses"></option>
+              <option value="pending" data-i18n="status.pending"></option>
+              <option value="in_progress" data-i18n="status.in_progress"></option>
+              <option value="resolved" data-i18n="status.resolved"></option>
+            </select>
+            <label class="sr-only" for="ticket-category" data-i18n="complaints.category"></label>
+            <select class="control" id="ticket-category" data-list-filter="category">
+              <option value="all" data-i18n="complaints.allCategories"></option>
+              <option value="plumbing" data-i18n="category.plumbing"></option>
+              <option value="electricity" data-i18n="category.electricity"></option>
+              <option value="noise" data-i18n="category.noise"></option>
+              <option value="other" data-i18n="category.other"></option>
+            </select>
+          </div>
+          <div class="table-wrap" data-list-table>
+            <table class="table table--stack">
+              <thead>
+                <tr>
+                  <th scope="col" data-i18n="complaints.ticket"></th>
+                  <th scope="col" data-i18n="common.student"></th>
+                  <th scope="col" data-i18n="complaints.description"></th>
+                  <th scope="col" data-i18n="complaints.technician"></th>
+                  <th scope="col" data-i18n="complaints.updated"></th>
+                  <th scope="col" data-i18n="common.status"></th>
+                  <th scope="col"><span class="sr-only" data-i18n="common.actions"></span></th>
+                </tr>
+              </thead>
+              <tbody data-list-body></tbody>
+            </table>
+          </div>
+          <div data-list-empty hidden></div>
+          <div class="pagination" data-list-pager></div>
+        </section>
+      </main>
+
+      <footer class="app-footer" data-i18n="app.footer"></footer>
+    </div>
+  </div>
+
+  <dialog class="modal modal--lg" id="ticket-modal" aria-labelledby="ticket-modal-title">
+    <form class="modal__form" id="ticket-form" novalidate>
+      <div class="modal__head">
+        <div>
+          <h2 class="modal__title" id="ticket-modal-title"></h2>
+          <p class="modal__sub" id="ticket-modal-sub"></p>
+        </div>
+        <button type="button" class="icon-btn" data-close data-i18n-aria-label="common.close" autofocus><span data-icon="x"></span></button>
+      </div>
+      <div class="modal__body">
+        <dl class="details" id="ticket-details"></dl>
+        <div>
+          <h3 class="field__label" data-i18n="complaints.history"></h3>
+          <ol class="timeline" id="ticket-timeline"></ol>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label class="field__label" for="ticket-status-input" data-i18n="common.status"></label>
+            <select class="control" id="ticket-status-input" name="status">
+              <option value="pending" data-i18n="status.pending"></option>
+              <option value="in_progress" data-i18n="status.in_progress"></option>
+              <option value="resolved" data-i18n="status.resolved"></option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="ticket-tech" data-i18n="complaints.assign"></label>
+            <select class="control" id="ticket-tech" name="technician_id"></select>
+          </div>
+          <div class="field field--full">
+            <label class="field__label" for="ticket-note" data-i18n="complaints.addNote"></label>
+            <textarea class="control" id="ticket-note" name="note" maxlength="500" dir="auto" aria-describedby="ticket-note-hint"></textarea>
+            <p class="field__hint" id="ticket-note-hint" data-i18n="complaints.noteHint"></p>
+          </div>
+        </div>
+      </div>
+      <div class="modal__foot">
+        <button type="button" class="btn btn--ghost" data-close data-i18n="common.cancel"></button>
+        <button type="submit" class="btn btn--primary" data-i18n="common.saveChanges"></button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

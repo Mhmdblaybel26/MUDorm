@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>DMS</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&family=Tajawal:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="css/base.css?v=20261123h">
+  <link rel="stylesheet" href="css/layout.css?v=20261123h">
+  <link rel="stylesheet" href="css/components.css?v=20261123h">
+  <link rel="stylesheet" href="css/rtl.css?v=20261123h">
+  <script src="js/i18n.js?v=20261123h"></script>
+  <script src="js/icons.js?v=20261123h" defer></script>
+  <script src="js/sound.js?v=20261123h" defer></script>
+  <script src="js/config.js?v=20261123h" defer></script>
+  <script src="js/api.js?v=20261123h" defer></script>
+  <script src="js/data.js?v=20261123h" defer></script>
+  <script src="js/translate.js?v=20261123h" defer></script>
+  <script src="js/app.js?v=20261123h" defer></script>
+  <script src="js/students.js?v=20261123h" defer></script>
+</head>
+<body data-page="students">
+  <a class="skip-link" href="#main" data-i18n="a11y.skip"></a>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="scrim" id="scrim" hidden></div>
+    <div class="app__body">
+      <header class="topbar" id="topbar"></header>
+
+      <main class="main" id="main" tabindex="-1">
+        <div class="page-head">
+          <div class="page-head__text">
+            <h1 class="page-title" data-i18n="nav.students"></h1>
+            <p class="page-sub" data-i18n="students.sub"></p>
+          </div>
+          <div class="page-actions">
+            <button type="button" class="btn btn--secondary" id="export-csv" data-i18n-title="students.exportCsvLabel"><span data-icon="download"></span><span data-i18n="export.csv"></span></button>
+            <button type="button" class="btn btn--secondary" id="export-pdf" data-i18n-title="students.exportPdfLabel"><span data-icon="file"></span><span data-i18n="export.pdf"></span></button>
+            <button type="button" class="btn btn--primary" id="add-student"><span data-icon="user-plus"></span><span data-i18n="students.add"></span></button>
+          </div>
+        </div>
+
+        <div class="notice notice--accent">
+          <span data-icon="user-plus"></span>
+          <div><strong data-i18n="students.ruleTitle"></strong><span data-i18n="students.ruleText"></span></div>
+        </div>
+
+        <div class="chips" id="status-chips" role="group" data-i18n-aria-label="common.quickFilter"></div>
+
+        <section class="card" id="student-list" aria-labelledby="student-list-title">
+          <h2 class="sr-only" id="student-list-title" data-i18n="students.listTitle"></h2>
+          <div class="toolbar">
+            <div class="toolbar__search">
+              <span data-icon="search"></span>
+              <label class="sr-only" for="student-search" data-i18n="common.search"></label>
+              <input class="control" id="student-search" type="search" autocomplete="off" data-list-search data-i18n-placeholder="students.searchPh">
+            </div>
+            <label class="sr-only" for="student-status" data-i18n="common.status"></label>
+            <select class="control" id="student-status" data-list-filter="status">
+              <option value="all" data-i18n="common.allStatuses"></option>
+              <option value="active" data-i18n="status.active"></option>
+              <option value="disabled" data-i18n="status.disabled"></option>
+            </select>
+            <label class="sr-only" for="student-faculty" data-i18n="students.colFaculty"></label>
+            <select class="control" id="student-faculty" data-list-filter="faculty">
+              <option value="all" data-i18n="students.allFaculties"></option>
+              <option value="engineering" data-i18n="faculty.engineering"></option>
+              <option value="sciences" data-i18n="faculty.sciences"></option>
+              <option value="business" data-i18n="faculty.business"></option>
+              <option value="media" data-i18n="faculty.media"></option>
+              <option value="health" data-i18n="faculty.health"></option>
+            </select>
+          </div>
+          <div class="table-wrap" data-list-table>
+            <table class="table table--stack">
+              <thead>
+                <tr>
+                  <th scope="col" data-i18n="common.student"></th>
+                  <th scope="col" data-i18n="students.colUniId"></th>
+                  <th scope="col" data-i18n="students.colMajor"></th>
+                  <th scope="col" data-i18n="common.room"></th>
+                  <th scope="col" data-i18n="students.colCreated"></th>
+                  <th scope="col" data-i18n="common.status"></th>
+                  <th scope="col"><span class="sr-only" data-i18n="common.actions"></span></th>
+                </tr>
+              </thead>
+              <tbody data-list-body></tbody>
+            </table>
+          </div>
+          <div data-list-empty hidden></div>
+          <div class="pagination" data-list-pager></div>
+        </section>
+      </main>
+
+      <footer class="app-footer" data-i18n="app.footer"></footer>
+    </div>
+  </div>
+
+  <dialog class="modal modal--lg" id="edit-modal" aria-labelledby="edit-title">
+    <form class="modal__form" id="edit-form" novalidate>
+      <div class="modal__head">
+        <div>
+          <h2 class="modal__title" id="edit-title" data-i18n="students.editTitle"></h2>
+          <p class="modal__sub" id="edit-sub"></p>
+        </div>
+        <button type="button" class="icon-btn" data-close data-i18n-aria-label="common.close"><span data-icon="x"></span></button>
+      </div>
+      <div class="modal__body stack">
+        <fieldset class="fieldset">
+          <legend data-i18n="apps.secPersonal"></legend>
+          <div class="form-grid">
+            <div class="field">
+              <label class="field__label" for="ed-name"><span data-i18n="settings.nameEn"></span><span class="field__req" aria-hidden="true">*</span></label>
+              <input class="control" id="ed-name" name="name" type="text" required maxlength="60" lang="en" dir="ltr" autocomplete="off">
+            </div>
+            <div class="field">
+              <label class="field__label" for="ed-name-ar"><span data-i18n="settings.nameAr"></span></label>
+              <input class="control" id="ed-name-ar" name="name_ar" type="text" maxlength="60" lang="ar" dir="rtl" autocomplete="off">
+            </div>
+            <div class="field">
+              <label class="field__label" for="ed-uni"><span data-i18n="students.colUniId"></span><span class="field__req" aria-hidden="true">*</span></label>
+              <input class="control" id="ed-uni" name="university_id" type="text" required inputmode="numeric" maxlength="8" dir="ltr" autocomplete="off" aria-describedby="ed-uni-hint">
+              <p class="field__hint" id="ed-uni-hint" data-i18n="students.uniIdHint"></p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="ed-email"><span data-i18n="apps.fEmail"></span><span class="field__req" aria-hidden="true">*</span></label>
+              <input class="control" id="ed-email" name="email" type="email" required maxlength="120" dir="ltr" autocomplete="off" spellcheck="false" placeholder="name@gmail.com" aria-describedby="ed-email-hint">
+              <p class="field__hint" id="ed-email-hint" data-i18n="students.emailHint"></p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="ed-phone"><span data-i18n="apps.fPhone"></span><span class="field__req" aria-hidden="true">*</span></label>
+              <input class="control" id="ed-phone" name="phone" type="tel" required maxlength="20" dir="ltr" autocomplete="off">
+            </div>
+            <div class="field">
+              <label class="field__label" for="ed-gender"><span data-i18n="apps.fGender"></span><span class="field__req" aria-hidden="true">*</span></label>
+              <select class="control" id="ed-gender" name="gender" required></select>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="fieldset">
+          <legend data-i18n="students.secStudies"></legend>
+          <div class="form-grid">
+            <div class="field">
+              <label class="field__label" for="ed-major"><span data-i18n="apps.fMajor"></span><span class="field__req" aria-hidden="true">*</span></label>
+              <select class="control" id="ed-major" name="major" required></select>
+            </div>
+            <div class="field">
+              <label class="field__label" for="ed-year"><span data-i18n="apps.fYear"></span><span class="field__req" aria-hidden="true">*</span></label>
+              <select class="control" id="ed-year" name="year" required></select>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="fieldset">
+          <legend data-i18n="students.secMedical"></legend>
+          <div class="form-grid">
+            <div class="field">
+              <label class="field__label" for="ed-blood"><span data-i18n="students.blood"></span></label>
+              <select class="control" id="ed-blood" name="blood_type"></select>
+            </div>
+            <div class="field">
+              <label class="field__label" for="ed-allergies"><span data-i18n="students.allergies"></span></label>
+              <input class="control" id="ed-allergies" name="allergies" type="text" maxlength="120" dir="auto" autocomplete="off">
+            </div>
+            <div class="field">
+              <label class="field__label" for="ed-conditions"><span data-i18n="students.conditions"></span></label>
+              <input class="control" id="ed-conditions" name="conditions" type="text" maxlength="120" dir="auto" autocomplete="off">
+            </div>
+            <div class="field">
+              <label class="field__label" for="ed-meds"><span data-i18n="students.medications"></span></label>
+              <input class="control" id="ed-meds" name="medications" type="text" maxlength="120" dir="auto" autocomplete="off">
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="fieldset">
+          <legend data-i18n="students.secEmergency"></legend>
+          <div class="form-grid">
+            <div class="field field--full">
+              <label class="field__label" for="ed-em-name"><span data-i18n="students.emName"></span></label>
+              <input class="control" id="ed-em-name" name="emergency_name" type="text" maxlength="80" dir="auto" autocomplete="off">
+            </div>
+            <div class="field">
+              <label class="field__label" for="ed-em-relation"><span data-i18n="students.emRelation"></span></label>
+              <select class="control" id="ed-em-relation" name="emergency_relation"></select>
+            </div>
+            <div class="field">
+              <label class="field__label" for="ed-em-phone"><span data-i18n="students.emPhone"></span></label>
+              <input class="control" id="ed-em-phone" name="emergency_phone" type="tel" maxlength="20" dir="ltr" autocomplete="off">
+            </div>
+          </div>
+        </fieldset>
+        <p class="field__hint" data-i18n="students.editHint"></p>
+      </div>
+      <div class="modal__foot">
+        <button type="button" class="btn btn--ghost" data-close data-i18n="common.cancel"></button>
+        <button type="submit" class="btn btn--primary" data-i18n="common.saveChanges"></button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="modal modal--sm" id="disable-modal" aria-labelledby="disable-title">
+    <form class="modal__form" id="disable-form" novalidate>
+      <div class="modal__head">
+        <div>
+          <h2 class="modal__title" id="disable-title" data-i18n="students.disableTitle"></h2>
+          <p class="modal__sub" id="disable-sub"></p>
+        </div>
+        <button type="button" class="icon-btn" data-close data-i18n-aria-label="common.close"><span data-icon="x"></span></button>
+      </div>
+      <div class="modal__body">
+        <div class="field">
+          <label class="field__label" for="disable-note" data-i18n="common.noteOptional"></label>
+          <textarea class="control" id="disable-note" name="note" maxlength="300" aria-describedby="disable-hint"></textarea>
+          <p class="field__hint" id="disable-hint" data-i18n="students.disableHint"></p>
+        </div>
+      </div>
+      <div class="modal__foot">
+        <button type="button" class="btn btn--ghost" data-close data-i18n="common.cancel"></button>
+        <button type="submit" class="btn btn--danger" data-i18n="students.disableConfirm"></button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="mail-modal" aria-labelledby="mail-title">
+    <form class="modal__form" id="mail-form" novalidate>
+      <div class="modal__head">
+        <div>
+          <h2 class="modal__title" id="mail-title" data-i18n="students.mailTitle"></h2>
+          <p class="modal__sub" id="mail-sub"></p>
+        </div>
+        <button type="button" class="icon-btn" data-close data-i18n-aria-label="common.close"><span data-icon="x"></span></button>
+      </div>
+      <div class="modal__body stack">
+        <div class="field">
+          <label class="field__label" for="mail-to" data-i18n="students.mailTo"></label>
+          <input class="control" id="mail-to" name="to" type="email" readonly dir="ltr">
+        </div>
+        <div class="field">
+          <label class="field__label" for="mail-subject"><span data-i18n="students.mailSubject"></span><span class="field__req" aria-hidden="true">*</span></label>
+          <input class="control" id="mail-subject" name="subject" type="text" required maxlength="150" dir="auto" autocomplete="off">
+        </div>
+        <div class="field">
+          <label class="field__label" for="mail-message"><span data-i18n="students.mailMessage"></span><span class="field__req" aria-hidden="true">*</span></label>
+          <textarea class="control" id="mail-message" name="message" required maxlength="5000" rows="8" dir="auto" aria-describedby="mail-hint"></textarea>
+          <p class="field__hint" id="mail-hint" data-i18n="students.mailHint"></p>
+        </div>
+      </div>
+      <div class="modal__foot">
+        <button type="button" class="btn btn--ghost" data-close data-i18n="common.cancel"></button>
+        <button type="submit" class="btn btn--primary"><span data-icon="mail" data-size="16"></span><span data-i18n="students.mailSend"></span></button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="modal modal--sm" id="creds-modal" aria-labelledby="creds-modal-title">
+    <div class="modal__head">
+      <div>
+        <h2 class="modal__title" id="creds-modal-title" data-i18n="students.credsTitle"></h2>
+        <p class="modal__sub" id="creds-modal-sub"></p>
+      </div>
+      <button type="button" class="icon-btn" data-close data-i18n-aria-label="common.close"><span data-icon="x"></span></button>
+    </div>
+    <div class="modal__body" id="creds-modal-body"></div>
+    <div class="modal__foot">
+      <button type="button" class="btn btn--primary" data-close data-i18n="common.close" autofocus></button>
+    </div>
+  </dialog>
+</body>
+</html>

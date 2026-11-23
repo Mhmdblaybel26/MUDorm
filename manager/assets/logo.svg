@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="MU Student Housing">
+  <!-- Student Housing logo, modern redraw of LogoM.png: the brick house outline
+       with its chimney, the navy "MU", the university's blue and yellow swoosh,
+       and the Arabic name. Flat colours, rounded strokes, no textures. -->
+  <defs>
+    <linearGradient id="brick" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e2603a"/>
+      <stop offset="1" stop-color="#b8391f"/>
+    </linearGradient>
+    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1d4fa8"/>
+      <stop offset="1" stop-color="#0f2f6e"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffd23f"/>
+      <stop offset="1" stop-color="#f5a300"/>
+    </linearGradient>
+  </defs>
+
+  <!-- House: walls, chimney, then the roof on top -->
+  <rect x="350" y="80" width="58" height="130" rx="10" fill="url(#brick)"/>
+  <g fill="none" stroke="url(#brick)" stroke-width="34" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M98 226V462H414V226" fill="#ffffff"/>
+    <path d="M46 238 256 50l210 188" fill="#ffffff"/>
+  </g>
+  <path d="M115 240h282v205H115z" fill="#ffffff"/>
+
+  <!-- MU -->
+  <g fill="none" stroke="url(#navy)" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M186 226v-58l31 40 31-40v58"/>
+    <path d="M274 168v32a26 26 0 0 0 52 0v-32"/>
+  </g>
+
+  <!-- Swoosh: gold behind, navy in front -->
+  <path d="M132 276c58 12 98 52 118 104 30-52 78-92 142-112-50 44-92 94-126 150-28-62-70-108-134-142z" fill="url(#gold)" transform="translate(252 250) scale(0.8) translate(-262 -252)"/>
+  <path d="M128 258c62 6 108 40 134 92 30-46 74-80 136-98-48 38-92 86-128 142-30-60-76-104-142-136z" fill="url(#navy)" transform="translate(256 240) scale(0.8) translate(-262 -252)"/>
+
+  <!-- Name: system Arabic fonts, held to a fixed width so it always fits the house -->
+  <g fill="#0f2f6e" font-family="'Segoe UI', Tahoma, 'Geeza Pro', 'Noto Sans Arabic', 'Noto Naskh Arabic', Arial, sans-serif" font-weight="700" text-anchor="middle" direction="rtl">
+    <text x="256" y="406" font-size="38" textLength="236" lengthAdjust="spacingAndGlyphs">السكن الجامعي</text>
+    <text x="256" y="440" font-size="19" textLength="196" lengthAdjust="spacingAndGlyphs" fill="#1d4fa8">جامعة المعارف · بيروت</text>
+  </g>
+</svg>

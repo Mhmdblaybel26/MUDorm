@@ -1,0 +1,36 @@
+/* ==========================================================================
+   rtl.css — Arabic typography and the few right-to-left details that
+   logical properties cannot express on their own.
+
+   The layout itself mirrors automatically: every stylesheet uses
+   inline-start/inline-end, and <html dir="rtl"> is set by i18n.js.
+   ========================================================================== */
+
+/* Arabic first in the font stack, so Arabic pages use Tajawal for body text
+   and Cairo for headings, while Latin snippets (e-mails, room codes) still
+   render cleanly. Arabic glyphs read smaller, so sizes and line height grow. */
+:root[lang="ar"] {
+  --font-body: "Tajawal", "Plus Jakarta Sans", system-ui, "Segoe UI", Tahoma, sans-serif;
+  --font-display: "Cairo", "Tajawal", "Sora", system-ui, "Segoe UI", Tahoma, sans-serif;
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --lh-body: 1.7;
+}
+
+:root[lang="ar"] h1,
+:root[lang="ar"] h2,
+:root[lang="ar"] h3 { letter-spacing: 0; line-height: 1.4; }
+
+:root[lang="ar"] .stat__value,
+:root[lang="ar"] .donut-total { letter-spacing: 0; }
+
+/* Glyphs with a direction (arrows, chevrons, sign-out) point the other way. */
+[dir="rtl"] .icon--dir { transform: scaleX(-1); }
+
+/* Native date/time pickers keep their digits left-to-right. */
+[dir="rtl"] input[type="date"],
+[dir="rtl"] input[type="time"],
+[dir="rtl"] input[type="month"],
+[dir="rtl"] input[type="email"],
+[dir="rtl"] input[type="tel"] { direction: ltr; text-align: end; }

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>DMS</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&family=Tajawal:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="css/base.css?v=20261123h">
+  <link rel="stylesheet" href="css/layout.css?v=20261123h">
+  <link rel="stylesheet" href="css/components.css?v=20261123h">
+  <link rel="stylesheet" href="css/rtl.css?v=20261123h">
+  <script src="js/i18n.js?v=20261123h"></script>
+  <script src="js/icons.js?v=20261123h" defer></script>
+  <script src="js/sound.js?v=20261123h" defer></script>
+  <script src="js/config.js?v=20261123h" defer></script>
+  <script src="js/api.js?v=20261123h" defer></script>
+  <script src="js/data.js?v=20261123h" defer></script>
+  <script src="js/translate.js?v=20261123h" defer></script>
+  <script src="js/app.js?v=20261123h" defer></script>
+  <script src="js/application-form.js?v=20261123h" defer></script>
+</head>
+<body data-page="appForm">
+  <a class="skip-link" href="#main" data-i18n="a11y.skip"></a>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="scrim" id="scrim" hidden></div>
+    <div class="app__body">
+      <header class="topbar" id="topbar"></header>
+
+      <main class="main" id="main" tabindex="-1">
+        <div class="page-head">
+          <div class="page-head__text">
+            <h1 class="page-title" data-i18n="nav.appForm"></h1>
+            <p class="page-sub" data-i18n="aform.sub"></p>
+          </div>
+          <div class="page-actions">
+            <a class="btn btn--secondary" id="preview-form" target="_blank" rel="noopener"><span data-icon="external-link"></span><span data-i18n="aform.preview"></span><span class="sr-only" data-i18n="aform.newTab"></span></a>
+            <button type="button" class="btn btn--primary" id="add-field"><span data-icon="plus"></span><span data-i18n="aform.add"></span></button>
+          </div>
+        </div>
+
+        <div class="notice">
+          <span data-icon="info"></span>
+          <div><strong data-i18n="aform.noticeTitle"></strong><span data-i18n="aform.noticeText"></span></div>
+        </div>
+
+        <div class="stack" id="sections"></div>
+
+        <section class="card card--pad" aria-labelledby="reset-title">
+          <h2 class="card__title" id="reset-title" data-i18n="aform.resetTitle"></h2>
+          <p class="card__sub" data-i18n="aform.resetText"></p>
+          <p><button type="button" class="btn btn--soft-danger" id="reset-form"><span data-icon="refresh"></span><span data-i18n="aform.reset"></span></button></p>
+        </section>
+      </main>
+
+      <footer class="app-footer" data-i18n="app.footer"></footer>
+    </div>
+  </div>
+
+  <dialog class="modal modal--lg" id="field-modal" aria-labelledby="field-modal-title">
+    <form class="modal__form" id="field-form" novalidate>
+      <div class="modal__head">
+        <div>
+          <h2 class="modal__title" id="field-modal-title"></h2>
+          <p class="modal__sub" id="field-modal-sub"></p>
+        </div>
+        <button type="button" class="icon-btn" data-close data-i18n-aria-label="common.close"><span data-icon="x"></span></button>
+      </div>
+      <div class="modal__body stack">
+        <div class="form-grid">
+          <div class="field">
+            <label class="field__label" for="ff-section"><span data-i18n="aform.fSection"></span><span class="field__req" aria-hidden="true">*</span></label>
+            <select class="control" id="ff-section" name="section" required></select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="ff-type"><span data-i18n="aform.fType"></span><span class="field__req" aria-hidden="true">*</span></label>
+            <select class="control" id="ff-type" name="type" required aria-describedby="ff-type-hint"></select>
+            <p class="field__hint" id="ff-type-hint"></p>
+          </div>
+          <div class="field">
+            <label class="field__label" for="ff-label-en" data-i18n="aform.fLabelEn"></label>
+            <input class="control" id="ff-label-en" name="label_en" type="text" maxlength="120" lang="en" dir="ltr" aria-describedby="ff-label-hint">
+          </div>
+          <div class="field">
+            <label class="field__label" for="ff-label-ar" data-i18n="aform.fLabelAr"></label>
+            <input class="control" id="ff-label-ar" name="label_ar" type="text" maxlength="120" lang="ar" dir="rtl" aria-describedby="ff-label-hint">
+          </div>
+          <p class="field__hint field--full" id="ff-label-hint" data-i18n="aform.labelHint"></p>
+          <div class="field">
+            <label class="field__label" for="ff-hint-en" data-i18n="aform.fHintEn"></label>
+            <input class="control" id="ff-hint-en" name="hint_en" type="text" maxlength="200" lang="en" dir="ltr">
+          </div>
+          <div class="field">
+            <label class="field__label" for="ff-hint-ar" data-i18n="aform.fHintAr"></label>
+            <input class="control" id="ff-hint-ar" name="hint_ar" type="text" maxlength="200" lang="ar" dir="rtl">
+          </div>
+          <div class="field field--full" id="ff-options">
+            <div class="form-grid">
+              <div class="field">
+                <label class="field__label" for="ff-options-en" data-i18n="aform.fOptionsEn"></label>
+                <textarea class="control" id="ff-options-en" name="options_en" rows="5" lang="en" dir="ltr" aria-describedby="ff-options-hint"></textarea>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ff-options-ar" data-i18n="aform.fOptionsAr"></label>
+                <textarea class="control" id="ff-options-ar" name="options_ar" rows="5" lang="ar" dir="rtl" aria-describedby="ff-options-hint"></textarea>
+              </div>
+            </div>
+            <p class="field__hint" id="ff-options-hint" data-i18n="aform.optionsHint"></p>
+          </div>
+          <p class="notice field--full" id="ff-fixed-options" hidden><span data-icon="lock"></span><span data-i18n="aform.fixedOptions"></span></p>
+          <div class="field field--full">
+            <label class="check"><input type="checkbox" id="ff-required" name="required" aria-describedby="ff-required-hint"><span class="check__text" data-i18n="aform.fRequired"></span></label>
+            <p class="field__hint" id="ff-required-hint"></p>
+          </div>
+        </div>
+      </div>
+      <div class="modal__foot">
+        <button type="button" class="btn btn--ghost" data-close data-i18n="common.cancel"></button>
+        <button type="submit" class="btn btn--primary" id="field-save" data-i18n="common.save"></button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

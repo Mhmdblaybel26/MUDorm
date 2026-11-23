@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>DMS</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&family=Tajawal:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="css/base.css?v=20261123h">
+  <link rel="stylesheet" href="css/layout.css?v=20261123h">
+  <link rel="stylesheet" href="css/components.css?v=20261123h">
+  <link rel="stylesheet" href="css/rtl.css?v=20261123h">
+  <script src="js/i18n.js?v=20261123h"></script>
+  <script src="js/icons.js?v=20261123h" defer></script>
+  <script src="js/sound.js?v=20261123h" defer></script>
+  <script src="js/config.js?v=20261123h" defer></script>
+  <script src="js/api.js?v=20261123h" defer></script>
+  <script src="js/data.js?v=20261123h" defer></script>
+  <script src="js/translate.js?v=20261123h" defer></script>
+  <script src="js/app.js?v=20261123h" defer></script>
+  <script src="js/health.js?v=20261123h" defer></script>
+</head>
+<body data-page="health">
+  <a class="skip-link" href="#main" data-i18n="a11y.skip"></a>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="scrim" id="scrim" hidden></div>
+    <div class="app__body">
+      <header class="topbar" id="topbar"></header>
+
+      <main class="main" id="main" tabindex="-1">
+        <div class="page-head">
+          <div class="page-head__text">
+            <h1 class="page-title" data-i18n="nav.health"></h1>
+            <p class="page-sub" data-i18n="health.sub"></p>
+          </div>
+        </div>
+        <section class="card" aria-labelledby="clinic-title">
+          <div class="card__head"><div><h2 class="card__title" id="clinic-title" data-i18n="health.clinicTitle"></h2><p class="card__sub" data-i18n="health.clinicSub"></p></div></div>
+          <form class="card__body" id="clinic-form" novalidate>
+            <div class="form-grid form-grid--3">
+            <div class="field">
+              <label class="field__label" for="cl-hotline"><span data-i18n="health.hotline"></span><span class="field__req" aria-hidden="true">*</span></label>
+              <input class="control" id="cl-hotline" name="hotline" type="tel" required aria-describedby="cl-hotline-hint" maxlength="20" dir="ltr">
+              <p class="field__hint" id="cl-hotline-hint" data-i18n="health.hotlineHint"></p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="cl-doctor"><span data-i18n="health.doctor"></span><span class="field__req" aria-hidden="true">*</span></label>
+              <input class="control" id="cl-doctor" name="doctor" type="text" required maxlength="60" dir="auto">
+            </div>
+            <div class="field">
+              <label class="field__label" for="cl-hours"><span data-i18n="health.hours"></span><span class="field__req" aria-hidden="true">*</span></label>
+              <input class="control" id="cl-hours" name="hours" type="text" required aria-describedby="cl-hours-hint" maxlength="120" dir="auto">
+              <p class="field__hint" id="cl-hours-hint" data-i18n="common.oneLanguage"></p>
+            </div>
+            </div>
+            <div class="form-actions"><button type="submit" class="btn btn--secondary" data-i18n="common.saveChanges"></button></div>
+          </form>
+        </section>
+
+        <div class="chips" id="status-chips" role="group" data-i18n-aria-label="common.quickFilter"></div>
+        <section class="card" id="request-list" aria-labelledby="request-list-title">
+          <div class="card__head"><h2 class="card__title" id="request-list-title" data-i18n="health.requestsTitle"></h2></div>
+          <div class="toolbar">
+            <div class="toolbar__search">
+              <span data-icon="search"></span>
+              <label class="sr-only" for="hr-search" data-i18n="common.search"></label>
+              <input class="control" id="hr-search" type="search" autocomplete="off" data-list-search data-i18n-placeholder="health.searchPh">
+            </div>
+            <label class="sr-only" for="hr-status" data-i18n="common.status"></label>
+            <select class="control" id="hr-status" data-list-filter="status">
+              <option value="all" data-i18n="common.allStatuses"></option>
+              <option value="pending" data-i18n="status.pending"></option>
+              <option value="scheduled" data-i18n="status.scheduled"></option>
+              <option value="done" data-i18n="status.done"></option>
+              <option value="cancelled" data-i18n="status.cancelled"></option>
+            </select>
+          </div>
+          <div class="table-wrap" data-list-table>
+            <table class="table table--stack">
+              <thead><tr><th scope="col" data-i18n="common.student"></th><th scope="col" data-i18n="health.colRequest"></th><th scope="col" data-i18n="health.colProblem"></th><th scope="col" data-i18n="health.colAppointment"></th><th scope="col" data-i18n="common.status"></th><th scope="col"><span class="sr-only" data-i18n="common.actions"></span></th></tr></thead>
+              <tbody data-list-body></tbody>
+            </table>
+          </div>
+          <div data-list-empty hidden></div>
+          <div class="pagination" data-list-pager></div>
+        </section>
+
+        <section class="card" id="emergencies" aria-labelledby="emergency-list-title">
+          <div class="card__head">
+            <div><h2 class="card__title" id="emergency-list-title" data-i18n="emg.title"></h2><p class="card__sub" data-i18n="emg.sub"></p></div>
+            <button type="button" class="btn btn--primary btn--sm" id="add-emergency"><span data-icon="plus" data-size="16"></span><span data-i18n="emg.add"></span></button>
+          </div>
+          <div id="emergency-list">
+            <div class="toolbar">
+              <div class="toolbar__search">
+                <span data-icon="search"></span>
+                <label class="sr-only" for="em-search" data-i18n="common.search"></label>
+                <input class="control" id="em-search" type="search" autocomplete="off" data-list-search data-i18n-placeholder="emg.searchPh">
+              </div>
+              <label class="sr-only" for="em-status" data-i18n="common.status"></label>
+              <select class="control" id="em-status" data-list-filter="status">
+                <option value="all" data-i18n="common.allStatuses"></option>
+                <option value="open" data-i18n="status.open"></option>
+                <option value="monitoring" data-i18n="status.monitoring"></option>
+                <option value="resolved" data-i18n="status.resolved"></option>
+              </select>
+            </div>
+            <div class="table-wrap" data-list-table>
+              <table class="table table--stack">
+                <thead><tr><th scope="col" data-i18n="emg.colCase"></th><th scope="col" data-i18n="common.student"></th><th scope="col" data-i18n="emg.colWhat"></th><th scope="col" data-i18n="emg.colWhen"></th><th scope="col" data-i18n="common.status"></th><th scope="col"><span class="sr-only" data-i18n="common.actions"></span></th></tr></thead>
+                <tbody data-list-body></tbody>
+              </table>
+            </div>
+            <div data-list-empty hidden></div>
+            <div class="pagination" data-list-pager></div>
+          </div>
+        </section>
+
+        <section class="card" id="profile-list" aria-labelledby="profile-list-title">
+          <div class="card__head"><h2 class="card__title" id="profile-list-title" data-i18n="health.profilesTitle"></h2></div>
+          <div class="toolbar">
+            <div class="toolbar__search">
+              <span data-icon="search"></span>
+              <label class="sr-only" for="hp-search" data-i18n="common.search"></label>
+              <input class="control" id="hp-search" type="search" autocomplete="off" data-list-search data-i18n-placeholder="health.profileSearchPh">
+            </div>
+            <label class="sr-only" for="hp-filter" data-i18n="health.show"></label>
+            <select class="control" id="hp-filter" data-list-filter="flag">
+              <option value="all" data-i18n="health.allStudents"></option>
+              <option value="flagged" data-i18n="health.flagged"></option>
+            </select>
+          </div>
+          <div class="table-wrap" data-list-table>
+            <table class="table table--stack">
+              <thead><tr><th scope="col" data-i18n="common.student"></th><th scope="col" data-i18n="health.blood"></th><th scope="col" data-i18n="health.colMedical"></th><th scope="col" data-i18n="health.colEmergency"></th><th scope="col"><span class="sr-only" data-i18n="common.actions"></span></th></tr></thead>
+              <tbody data-list-body></tbody>
+            </table>
+          </div>
+          <div data-list-empty hidden></div>
+          <div class="pagination" data-list-pager></div>
+        </section>
+      </main>
+
+      <footer class="app-footer" data-i18n="app.footer"></footer>
+    </div>
+  </div>
+
+  <dialog class="modal modal--lg" id="request-modal" aria-labelledby="request-modal-title">
+    <form class="modal__form" id="request-form" novalidate>
+      <div class="modal__head">
+        <div>
+          <h2 class="modal__title" id="request-modal-title"></h2>
+          <p class="modal__sub" id="request-modal-sub"></p>
+        </div>
+        <button type="button" class="icon-btn" data-close data-i18n-aria-label="common.close"><span data-icon="x"></span></button>
+      </div>
+      <div class="modal__body stack">
+          <dl class="details" id="request-details"></dl>
+          <div class="form-grid">
+            <div class="field">
+              <label class="field__label" for="rq-status"><span data-i18n="common.status"></span><span class="field__req" aria-hidden="true">*</span></label>
+              <select class="control" id="rq-status" name="status" required>
+                <option value="pending" data-i18n="status.pending"></option>
+                <option value="scheduled" data-i18n="status.scheduled"></option>
+                <option value="done" data-i18n="status.done"></option>
+                <option value="cancelled" data-i18n="status.cancelled"></option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field__label" for="rq-when"><span data-i18n="health.appointment"></span></label>
+              <input class="control" id="rq-when" name="appointment_at" type="datetime-local" aria-describedby="rq-when-hint" >
+              <p class="field__hint" id="rq-when-hint" data-i18n="health.appointmentHint"></p>
+            </div>
+            <div class="field field--full">
+              <label class="field__label" for="rq-note"><span data-i18n="health.note"></span></label>
+              <textarea class="control" id="rq-note" name="note" aria-describedby="rq-note-hint" maxlength="400" dir="auto" rows="4"></textarea>
+              <p class="field__hint" id="rq-note-hint" data-i18n="health.noteHint"></p>
+            </div>
+          </div>
+      </div>
+      <div class="modal__foot">
+        <button type="button" class="btn btn--ghost" data-close data-i18n="common.cancel"></button>
+        <button type="submit" class="btn btn--primary" data-i18n="common.saveChanges"></button>
+      </div>
+    </form>
+  </dialog>
+  <dialog class="modal" id="profile-modal" aria-labelledby="profile-modal-title">
+    <form class="modal__form" id="profile-form" novalidate>
+      <div class="modal__head">
+        <div>
+          <h2 class="modal__title" id="profile-modal-title"></h2>
+          <p class="modal__sub" id="profile-modal-sub"></p>
+        </div>
+        <button type="button" class="icon-btn" data-close data-i18n-aria-label="common.close"><span data-icon="x"></span></button>
+      </div>
+      <div class="modal__body stack">
+          <div class="form-grid">
+            <div class="field">
+              <label class="field__label" for="hp-blood"><span data-i18n="health.blood"></span></label>
+              <select class="control" id="hp-blood" name="blood_type"></select>
+            </div>
+            <div class="field">
+              <label class="field__label" for="hp-allergies"><span data-i18n="health.allergies"></span></label>
+              <input class="control" id="hp-allergies" name="allergies" type="text" maxlength="120" dir="auto">
+            </div>
+            <div class="field">
+              <label class="field__label" for="hp-conditions"><span data-i18n="health.conditions"></span></label>
+              <input class="control" id="hp-conditions" name="conditions" type="text" maxlength="120" dir="auto">
+            </div>
+            <div class="field">
+              <label class="field__label" for="hp-meds"><span data-i18n="health.medications"></span></label>
+              <input class="control" id="hp-meds" name="medications" type="text" maxlength="120" dir="auto">
+            </div>
+            <div class="field field--full">
+              <label class="field__label" for="hp-em-name"><span data-i18n="health.emName"></span></label>
+              <input class="control" id="hp-em-name" name="emergency_name" type="text" maxlength="80" dir="auto">
+            </div>
+            <div class="field">
+              <label class="field__label" for="hp-em-relation"><span data-i18n="health.emRelation"></span></label>
+              <select class="control" id="hp-em-relation" name="emergency_relation"></select>
+            </div>
+            <div class="field">
+              <label class="field__label" for="hp-em-phone"><span data-i18n="health.emPhone"></span></label>
+              <input class="control" id="hp-em-phone" name="emergency_phone" type="tel" maxlength="20" dir="ltr">
+            </div>
+          </div>
+      </div>
+      <div class="modal__foot">
+        <button type="button" class="btn btn--ghost" data-close data-i18n="common.cancel"></button>
+        <button type="submit" class="btn btn--primary" data-i18n="common.saveChanges"></button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Emergency cases are seen only by the dorm office (never sent to students). -->
+  <dialog class="modal modal--lg" id="emergency-modal" aria-labelledby="emergency-modal-title">
+    <form class="modal__form" id="emergency-form" novalidate>
+      <div class="modal__head">
+        <div>
+          <h2 class="modal__title" id="emergency-modal-title"></h2>
+          <p class="modal__sub" id="emergency-modal-sub" data-i18n="emg.private"></p>
+        </div>
+        <button type="button" class="icon-btn" data-close data-i18n-aria-label="common.close"><span data-icon="x"></span></button>
+      </div>
+      <div class="modal__body">
+        <div class="form-grid">
+          <div class="field">
+            <label class="field__label" for="em-student"><span data-i18n="common.student"></span></label>
+            <select class="control" id="em-student" name="student_id"></select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="em-when"><span data-i18n="emg.occurred"></span><span class="field__req" aria-hidden="true">*</span></label>
+            <input class="control" id="em-when" name="occurred_at" type="datetime-local" required>
+          </div>
+          <div class="field">
+            <label class="field__label" for="em-category"><span data-i18n="emg.category"></span><span class="field__req" aria-hidden="true">*</span></label>
+            <select class="control" id="em-category" name="category" required></select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="em-severity"><span data-i18n="emg.severity"></span><span class="field__req" aria-hidden="true">*</span></label>
+            <select class="control" id="em-severity" name="severity" required></select>
+          </div>
+          <div class="field field--full">
+            <label class="field__label" for="em-title"><span data-i18n="emg.titleField"></span><span class="field__req" aria-hidden="true">*</span></label>
+            <input class="control" id="em-title" name="title" type="text" maxlength="160" required dir="auto">
+          </div>
+          <div class="field field--full">
+            <label class="field__label" for="em-description"><span data-i18n="emg.description"></span><span class="field__req" aria-hidden="true">*</span></label>
+            <textarea class="control" id="em-description" name="description" maxlength="3000" rows="4" required dir="auto"></textarea>
+          </div>
+          <div class="field field--full">
+            <label class="field__label" for="em-action"><span data-i18n="emg.action"></span></label>
+            <textarea class="control" id="em-action" name="action_taken" maxlength="3000" rows="3" dir="auto" aria-describedby="em-action-hint"></textarea>
+            <p class="field__hint" id="em-action-hint" data-i18n="emg.actionHint"></p>
+          </div>
+          <div class="field">
+            <label class="field__label" for="em-state"><span data-i18n="common.status"></span><span class="field__req" aria-hidden="true">*</span></label>
+            <select class="control" id="em-state" name="status" required>
+              <option value="open" data-i18n="status.open"></option>
+              <option value="monitoring" data-i18n="status.monitoring"></option>
+              <option value="resolved" data-i18n="status.resolved"></option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal__foot">
+        <button type="button" class="btn btn--ghost" data-close data-i18n="common.cancel"></button>
+        <button type="submit" class="btn btn--primary" data-i18n="common.saveChanges"></button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

@@ -1,0 +1,328 @@
+/* ==========================================================================
+   base.css — design tokens (light + dark), reset, typography, utilities.
+
+   Every colour, spacing step and radius used anywhere in the admin console is
+   a variable defined here. Components never use raw values.
+   Dark mode: the same roles re-stepped for a dark surface. It follows the OS
+   setting unless the viewer picks a theme (html[data-theme]).
+   Chart colours were checked for colour-blind separation and 3:1 contrast
+   against each theme's card surface.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* Brand ramps */
+  --navy-950: #071427;
+  --navy-900: #0b1d36;
+  --navy-800: #102849;
+  --navy-700: #16355f;
+  --navy-600: #1f4a80;
+  --navy-100: #dbe4f1;
+  --teal-700: #0f766e;
+  --teal-600: #0d9488;
+  --teal-500: #14b8a6;
+  --teal-400: #2dd4bf;
+  --teal-300: #5eead4;
+
+  /* Surfaces and ink */
+  --bg: #f2f5f9;
+  --surface: #ffffff;
+  --surface-2: #f6f8fb;
+  --surface-3: #ebf0f6;
+  --border: #dfe6ef;
+  --border-strong: #c3cedc;
+  --text: #13213a;
+  --text-muted: #55627a;
+  --overlay: rgba(7, 20, 39, 0.55);
+
+  /* Roles */
+  --primary: var(--navy-700);
+  --primary-hover: var(--navy-800);
+  --on-primary: #ffffff;
+  --on-solid: #ffffff;
+  --accent: var(--teal-600);
+  --accent-strong: var(--teal-700);
+  --accent-soft: #e2f5f2;
+  --link: var(--teal-700);
+  --focus-ring: var(--teal-600);
+
+  /* Status (always paired with a text label) */
+  --success: #15803d;
+  --success-soft: #e5f4e9;
+  --warning: #9a5600;
+  --warning-soft: #fdf0d9;
+  --danger: #c0262d;
+  --danger-soft: #fdeaea;
+  --info: #1d5fd1;
+  --info-soft: #e7effd;
+  --neutral: #4b5870;
+  --neutral-soft: #edf1f6;
+
+  /* Sidebar stays navy in both themes */
+  --sidebar-bg: var(--navy-900);
+  --sidebar-text: #c6d2e5;
+  --sidebar-muted: #8fa1bd;
+  --sidebar-hover: rgba(255, 255, 255, 0.07);
+  --sidebar-active: rgba(45, 212, 191, 0.14);
+  --sidebar-accent: var(--teal-400);
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+
+  /* Charts */
+  --chart-bar: #0f8f84;
+  --chart-pending: #d97706;
+  --chart-progress: #2563eb;
+  --chart-resolved: #15803d;
+  --chart-grid: #e5ebf2;
+  --chart-track: #eef2f7;
+
+  /* Avatar backgrounds (initials are white on all six) */
+  --avatar-1: #16355f;
+  --avatar-2: #0f766e;
+  --avatar-3: #1f4a80;
+  --avatar-4: #155e75;
+  --avatar-5: #3b4f6b;
+  --avatar-6: #0e6672;
+
+  /* Score meter */
+  --meter-good: var(--teal-600);
+  --meter-mid: #d97706;
+  --meter-low: #dc2626;
+
+  /* Typography: Latin face first, Arabic face second, so mixed text renders
+     each script in its own font. rtl.css swaps the order for Arabic pages. */
+  --font-body: "Plus Jakarta Sans", "Tajawal", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: "Sora", "Cairo", "Plus Jakarta Sans", system-ui, "Segoe UI", sans-serif;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.8125rem;
+  --fs-md: 0.9375rem;
+  --fs-lg: 1.0625rem;
+  --fs-xl: 1.25rem;
+  --fs-2xl: 1.5rem;
+  --fs-3xl: 1.875rem;
+  --lh-body: 1.55;
+
+  /* Spacing (4px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Shape and depth */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 1px 2px rgba(11, 29, 54, 0.06), 0 1px 3px rgba(11, 29, 54, 0.04);
+  --shadow-md: 0 6px 18px rgba(11, 29, 54, 0.08);
+  --shadow-lg: 0 20px 50px rgba(11, 29, 54, 0.2);
+
+  /* Layout */
+  --sidebar-w: 268px;
+  --topbar-h: 64px;
+  --content-max: 1320px;
+  --gutter: 24px;
+  --control-h: 40px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 0.18s;
+
+  /* 1 in LTR, -1 in RTL: lets transforms mirror without duplicate rules */
+  --dir: 1;
+}
+
+[dir="rtl"] { --dir: -1; }
+
+/* Dark tokens, declared twice: once for the OS setting (unless the viewer
+   chose light) and once for an explicit dark choice. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0a1526;
+    --surface: #13233b;
+    --surface-2: #172a45;
+    --surface-3: #1e3454;
+    --border: #253b5c;
+    --border-strong: #345073;
+    --text: #e8eef8;
+    --text-muted: #a3b3cb;
+    --overlay: rgba(2, 8, 18, 0.7);
+    --primary: var(--teal-500);
+    --primary-hover: var(--teal-400);
+    --on-primary: #04211d;
+    --on-solid: #0a1526;
+    --accent: var(--teal-500);
+    --accent-strong: var(--teal-300);
+    --accent-soft: rgba(20, 184, 166, 0.15);
+    --link: var(--teal-300);
+    --focus-ring: var(--teal-400);
+    --success: #4ade80;
+    --success-soft: rgba(74, 222, 128, 0.13);
+    --warning: #fbbf24;
+    --warning-soft: rgba(251, 191, 36, 0.13);
+    --danger: #f87171;
+    --danger-soft: rgba(248, 113, 113, 0.14);
+    --info: #8bb8ff;
+    --info-soft: rgba(96, 165, 250, 0.15);
+    --neutral: #b6c3d7;
+    --neutral-soft: rgba(148, 163, 184, 0.15);
+    --sidebar-bg: #071122;
+    --chart-bar: #0f9a8c;
+    --chart-pending: #c47c09;
+    --chart-progress: #3f7fd9;
+    --chart-resolved: #17966a;
+    --chart-grid: #22385a;
+    --chart-track: #1b2f4c;
+    --meter-good: #14b8a6;
+    --meter-mid: #f59e0b;
+    --meter-low: #f87171;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.55);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0a1526;
+  --surface: #13233b;
+  --surface-2: #172a45;
+  --surface-3: #1e3454;
+  --border: #253b5c;
+  --border-strong: #345073;
+  --text: #e8eef8;
+  --text-muted: #a3b3cb;
+  --overlay: rgba(2, 8, 18, 0.7);
+  --primary: var(--teal-500);
+  --primary-hover: var(--teal-400);
+  --on-primary: #04211d;
+  --on-solid: #0a1526;
+  --accent: var(--teal-500);
+  --accent-strong: var(--teal-300);
+  --accent-soft: rgba(20, 184, 166, 0.15);
+  --link: var(--teal-300);
+  --focus-ring: var(--teal-400);
+  --success: #4ade80;
+  --success-soft: rgba(74, 222, 128, 0.13);
+  --warning: #fbbf24;
+  --warning-soft: rgba(251, 191, 36, 0.13);
+  --danger: #f87171;
+  --danger-soft: rgba(248, 113, 113, 0.14);
+  --info: #8bb8ff;
+  --info-soft: rgba(96, 165, 250, 0.15);
+  --neutral: #b6c3d7;
+  --neutral-soft: rgba(148, 163, 184, 0.15);
+  --sidebar-bg: #071122;
+  --chart-bar: #0f9a8c;
+  --chart-pending: #c47c09;
+  --chart-progress: #3f7fd9;
+  --chart-resolved: #17966a;
+  --chart-grid: #22385a;
+  --chart-track: #1b2f4c;
+  --meter-good: #14b8a6;
+  --meter-mid: #f59e0b;
+  --meter-low: #f87171;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.55);
+}
+
+/* ---------- Reset ---------- */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, p, figure, dl, dd, blockquote { margin: 0; }
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+ul, ol { margin: 0; padding: 0; list-style: none; }
+img, svg, canvas { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+table { border-collapse: collapse; }
+a { color: var(--link); text-underline-offset: 2px; }
+[hidden] { display: none !important; }
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+main:focus { outline: none; }
+
+::selection { background: var(--accent-soft); }
+
+/* ---------- Utilities ---------- */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  inset-block-start: -80px;
+  inset-inline-start: var(--space-3);
+  z-index: 500;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--navy-900);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+.skip-link:focus { inset-block-start: var(--space-3); }
+
+.muted { color: var(--text-muted); }
+.nowrap { white-space: nowrap; }
+.num { font-variant-numeric: tabular-nums; }
+/* Codes, e-mails and phone numbers stay left-to-right inside Arabic text. */
+.ltr { direction: ltr; unicode-bidi: isolate; }
+.stack { display: grid; gap: var(--space-5); }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

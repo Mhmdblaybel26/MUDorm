@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>DMS</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&family=Tajawal:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="css/base.css?v=20261123h">
+  <link rel="stylesheet" href="css/layout.css?v=20261123h">
+  <link rel="stylesheet" href="css/components.css?v=20261123h">
+  <link rel="stylesheet" href="css/rtl.css?v=20261123h">
+  <script src="js/i18n.js?v=20261123h"></script>
+  <script src="js/icons.js?v=20261123h" defer></script>
+  <script src="js/sound.js?v=20261123h" defer></script>
+  <script src="js/config.js?v=20261123h" defer></script>
+  <script src="js/api.js?v=20261123h" defer></script>
+  <script src="js/data.js?v=20261123h" defer></script>
+  <script src="js/translate.js?v=20261123h" defer></script>
+  <script src="js/app.js?v=20261123h" defer></script>
+  <script src="js/rooms.js?v=20261123h" defer></script>
+</head>
+<body data-page="rooms">
+  <a class="skip-link" href="#main" data-i18n="a11y.skip"></a>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="scrim" id="scrim" hidden></div>
+    <div class="app__body">
+      <header class="topbar" id="topbar"></header>
+
+      <main class="main" id="main" tabindex="-1">
+        <div class="page-head">
+          <div class="page-head__text">
+            <h1 class="page-title" data-i18n="nav.rooms"></h1>
+            <p class="page-sub" data-i18n="rooms.sub"></p>
+          </div>
+          <div class="page-actions">
+            <button type="button" class="btn btn--primary" id="add-room"><span data-icon="plus"></span><span data-i18n="rooms.add"></span></button>
+          </div>
+        </div>
+
+        <section aria-labelledby="room-stats-title">
+          <h2 class="sr-only" id="room-stats-title" data-i18n="rooms.statsTitle"></h2>
+          <div class="stat-grid" id="room-stats"></div>
+        </section>
+
+        <section class="card" id="room-list" aria-labelledby="room-list-title">
+          <h2 class="sr-only" id="room-list-title" data-i18n="rooms.listTitle"></h2>
+          <div class="toolbar">
+            <div class="toolbar__search">
+              <span data-icon="search"></span>
+              <label class="sr-only" for="room-search" data-i18n="common.search"></label>
+              <input class="control" id="room-search" type="search" autocomplete="off" data-list-search data-i18n-placeholder="rooms.searchPh">
+            </div>
+            <label class="sr-only" for="room-wing" data-i18n="common.wing"></label>
+            <select class="control" id="room-wing" data-list-filter="wing">
+              <option value="all" data-i18n="common.allWings"></option>
+              <option value="A" data-i18n="wing.A"></option>
+              <option value="B" data-i18n="wing.B"></option>
+              <option value="C" data-i18n="wing.C"></option>
+              <option value="D" data-i18n="wing.D"></option>
+            </select>
+            <label class="sr-only" for="room-type-filter" data-i18n="rooms.fType"></label>
+            <select class="control" id="room-type-filter" data-list-filter="type">
+              <option value="all" data-i18n="common.allRoomTypes"></option>
+              <option value="double" data-i18n="roomType.double"></option>
+              <option value="triple" data-i18n="roomType.triple"></option>
+            </select>
+            <label class="sr-only" for="room-status-filter" data-i18n="common.status"></label>
+            <select class="control" id="room-status-filter" data-list-filter="status">
+              <option value="all" data-i18n="common.allStatuses"></option>
+              <option value="available" data-i18n="status.available"></option>
+              <option value="full" data-i18n="status.full"></option>
+              <option value="maintenance" data-i18n="status.maintenance"></option>
+              <option value="unavailable" data-i18n="status.unavailable"></option>
+              <option value="uninhabitable" data-i18n="status.uninhabitable"></option>
+            </select>
+          </div>
+          <div class="table-wrap" data-list-table>
+            <table class="table table--stack">
+              <thead>
+                <tr>
+                  <th scope="col"><span class="sr-only" data-i18n="rooms.fPhoto"></span></th>
+                  <th scope="col" data-i18n="common.room"></th>
+                  <th scope="col" data-i18n="common.wing"></th>
+                  <th scope="col" data-i18n="rooms.fType"></th>
+                  <th scope="col" data-i18n="rooms.colOccupancy"></th>
+                  <th scope="col" data-i18n="common.status"></th>
+                  <th scope="col"><span class="sr-only" data-i18n="common.actions"></span></th>
+                </tr>
+              </thead>
+              <tbody data-list-body></tbody>
+            </table>
+          </div>
+          <div data-list-empty hidden></div>
+          <div class="pagination" data-list-pager></div>
+        </section>
+      </main>
+
+      <footer class="app-footer" data-i18n="app.footer"></footer>
+    </div>
+  </div>
+
+  <dialog class="modal" id="room-modal" aria-labelledby="room-modal-title">
+    <form class="modal__form" id="room-form" novalidate>
+      <div class="modal__head">
+        <div>
+          <h2 class="modal__title" id="room-modal-title"></h2>
+          <p class="modal__sub" id="room-modal-sub"></p>
+        </div>
+        <button type="button" class="icon-btn" data-close data-i18n-aria-label="common.close"><span data-icon="x"></span></button>
+      </div>
+      <div class="modal__body">
+        <div class="form-grid">
+          <div class="field">
+            <label class="field__label" for="room-number"><span data-i18n="rooms.fNumber"></span><span class="field__req" aria-hidden="true">*</span></label>
+            <input class="control" id="room-number" name="number" type="text" maxlength="6" autocomplete="off" dir="ltr" required aria-describedby="room-number-hint" data-i18n-placeholder="rooms.numberPh">
+            <p class="field__hint" id="room-number-hint" data-i18n="rooms.numberHint"></p>
+          </div>
+          <div class="field">
+            <label class="field__label" for="room-wing-input"><span data-i18n="common.wing"></span><span class="field__req" aria-hidden="true">*</span></label>
+            <select class="control" id="room-wing-input" name="wing" required>
+              <option value="A" data-i18n="wing.A"></option>
+              <option value="B" data-i18n="wing.B"></option>
+              <option value="C" data-i18n="wing.C"></option>
+              <option value="D" data-i18n="wing.D"></option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="room-type"><span data-i18n="rooms.fType"></span><span class="field__req" aria-hidden="true">*</span></label>
+            <select class="control" id="room-type" name="type" required>
+              <option value="double" data-i18n="roomType.double"></option>
+              <option value="triple" data-i18n="roomType.triple"></option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="room-capacity"><span data-i18n="rooms.fCapacity"></span><span class="field__req" aria-hidden="true">*</span></label>
+            <input class="control" id="room-capacity" name="capacity" type="number" min="1" max="4" step="1" inputmode="numeric" required aria-describedby="room-capacity-hint">
+            <p class="field__hint" id="room-capacity-hint" data-i18n="rooms.capacityHint"></p>
+          </div>
+          <div class="field field--full">
+            <label class="field__label" for="room-status"><span data-i18n="common.status"></span><span class="field__req" aria-hidden="true">*</span></label>
+            <select class="control" id="room-status" name="status" aria-describedby="room-status-hint">
+              <option value="available" data-i18n="rooms.statusOpen"></option>
+              <option value="maintenance" data-i18n="rooms.statusMaintenance"></option>
+              <option value="unavailable" data-i18n="rooms.statusUnavailable"></option>
+              <option value="uninhabitable" data-i18n="rooms.statusUninhabitable"></option>
+            </select>
+            <p class="field__hint" id="room-status-hint" data-i18n="rooms.statusHint"></p>
+          </div>
+          <div class="field field--full">
+            <span class="field__label" id="room-photo-label" data-i18n="rooms.fPhoto"></span>
+            <div class="upload">
+              <div class="upload__preview" id="room-photo-preview"></div>
+              <div class="upload__actions">
+                <input class="upload__input" id="room-photo" name="photo" type="file" accept="image/jpeg,image/png,image/webp,image/gif" aria-describedby="room-photo-label room-photo-hint">
+                <label class="btn btn--secondary btn--sm" for="room-photo"><span data-icon="upload" data-size="16"></span><span data-i18n="rooms.choosePhoto"></span></label>
+                <button type="button" class="btn btn--ghost btn--sm" id="room-photo-remove" data-i18n="rooms.removePhoto" hidden></button>
+                <p class="field__hint" id="room-photo-hint" data-i18n="rooms.photoHint"></p>
+              </div>
+            </div>
+          </div>
+          <div class="field field--full">
+            <label class="field__label" for="room-notes" data-i18n="rooms.fNotes"></label>
+            <textarea class="control" id="room-notes" name="notes" maxlength="300" dir="auto"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal__foot">
+        <button type="button" class="btn btn--ghost" data-close data-i18n="common.cancel"></button>
+        <button type="submit" class="btn btn--primary" data-i18n="common.save"></button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

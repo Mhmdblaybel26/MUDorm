@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>DMS</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&family=Tajawal:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="css/base.css?v=20261123h">
+  <link rel="stylesheet" href="css/layout.css?v=20261123h">
+  <link rel="stylesheet" href="css/components.css?v=20261123h">
+  <link rel="stylesheet" href="css/rtl.css?v=20261123h">
+  <script src="js/i18n.js?v=20261123h"></script>
+  <script src="js/icons.js?v=20261123h" defer></script>
+  <script src="js/sound.js?v=20261123h" defer></script>
+  <script src="js/config.js?v=20261123h" defer></script>
+  <script src="js/api.js?v=20261123h" defer></script>
+  <script src="js/data.js?v=20261123h" defer></script>
+  <script src="js/translate.js?v=20261123h" defer></script>
+  <script src="js/app.js?v=20261123h" defer></script>
+  <script src="js/meal-menus.js?v=20261123h" defer></script>
+</head>
+<body data-page="menus">
+  <a class="skip-link" href="#main" data-i18n="a11y.skip"></a>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="scrim" id="scrim" hidden></div>
+    <div class="app__body">
+      <header class="topbar" id="topbar"></header>
+
+      <main class="main" id="main" tabindex="-1">
+        <div class="page-head">
+          <div class="page-head__text">
+            <h1 class="page-title" data-i18n="nav.menus"></h1>
+            <p class="page-sub" data-i18n="menus.sub"></p>
+          </div>
+          <div class="page-actions">
+            <button type="button" class="btn btn--secondary" id="open-summary"><span data-icon="download"></span><span data-i18n="msum.open"></span></button>
+            <button type="button" class="btn btn--primary" id="add-item"><span data-icon="plus"></span><span data-i18n="menus.add"></span></button>
+          </div>
+        </div>
+
+        <section class="card" aria-labelledby="cutoff-title">
+          <div class="card__head card__head--plain">
+            <div>
+              <h2 class="card__title" id="cutoff-title" data-i18n="menus.cutoffTitle"></h2>
+              <p class="card__sub" data-i18n="menus.cutoffSub"></p>
+            </div>
+          </div>
+          <form class="card__body cutoff" id="cutoff-form" novalidate>
+            <div class="field">
+              <label class="field__label" for="cutoff-time" data-i18n="menus.cutoffLabel"></label>
+              <!-- The time and its save button on one line; the hint and the status underneath. -->
+              <div class="cutoff__row">
+                <input class="control" id="cutoff-time" name="cutoff" type="time" step="900" required aria-describedby="cutoff-hint cutoff-status">
+                <button type="submit" class="btn btn--secondary"><span data-icon="clock" data-size="16"></span><span data-i18n="menus.cutoffSave"></span></button>
+              </div>
+              <p class="field__hint" id="cutoff-hint" data-i18n="menus.cutoffHint"></p>
+            </div>
+            <p class="cutoff__status" id="cutoff-status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="card" aria-labelledby="tomorrow-title">
+          <div class="card__head">
+            <div>
+              <h2 class="card__title" id="tomorrow-title" data-i18n="menus.tomorrowTitle"></h2>
+              <p class="card__sub" id="tomorrow-sub"></p>
+            </div>
+          </div>
+          <div class="card__body stack">
+            <div id="tomorrow-notice" role="status"></div>
+            <div class="stat-grid" id="tomorrow-meals"></div>
+          </div>
+        </section>
+
+        <section class="card" aria-labelledby="week-title">
+          <div class="card__head">
+            <div>
+              <h2 class="card__title" id="week-title" data-i18n="menus.weekTitle"></h2>
+              <div class="segmented segmented--spaced" role="group" data-i18n-aria-label="menus.mealTabs" id="meal-tabs">
+                <button type="button" data-meal="breakfast" aria-pressed="true" data-i18n="meal.breakfast"></button>
+                <button type="button" data-meal="lunch" aria-pressed="false" data-i18n="meal.lunch"></button>
+                <button type="button" data-meal="dinner" aria-pressed="false" data-i18n="meal.dinner"></button>
+              </div>
+            </div>
+            <div class="week-nav">
+              <button type="button" class="icon-btn" id="week-prev" data-i18n-aria-label="menus.prevWeek"><span data-icon="chevron-left"></span></button>
+              <span class="week-nav__label" id="week-label" aria-live="polite"></span>
+              <button type="button" class="icon-btn" id="week-next" data-i18n-aria-label="menus.nextWeek"><span data-icon="chevron-right"></span></button>
+              <button type="button" class="btn btn--ghost btn--sm" id="week-today" data-i18n="menus.thisWeek"></button>
+            </div>
+          </div>
+          <div class="card__body">
+            <div class="week" id="week"></div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="app-footer" data-i18n="app.footer"></footer>
+    </div>
+  </div>
+
+  <dialog class="modal" id="menu-modal" aria-labelledby="menu-modal-title">
+    <form class="modal__form" id="menu-form" novalidate>
+      <div class="modal__head">
+        <h2 class="modal__title" id="menu-modal-title"></h2>
+        <button type="button" class="icon-btn" data-close data-i18n-aria-label="common.close"><span data-icon="x"></span></button>
+      </div>
+      <div class="modal__body">
+        <div class="form-grid">
+          <div class="field">
+            <label class="field__label" for="menu-date"><span data-i18n="common.date"></span><span class="field__req" aria-hidden="true">*</span></label>
+            <input class="control" id="menu-date" name="date" type="date" required>
+          </div>
+          <div class="field">
+            <label class="field__label" for="menu-meal"><span data-i18n="menus.fMeal"></span><span class="field__req" aria-hidden="true">*</span></label>
+            <select class="control" id="menu-meal" name="meal" required></select>
+          </div>
+          <div class="field field--full">
+            <label class="field__label" for="menu-type"><span data-i18n="menus.fType"></span><span class="field__req" aria-hidden="true">*</span></label>
+            <select class="control" id="menu-type" name="type" required>
+              <option value="main" data-i18n="menuType.main"></option>
+              <option value="vegetarian" data-i18n="menuType.vegetarian"></option>
+              <option value="light" data-i18n="menuType.light"></option>
+            </select>
+          </div>
+          <div class="field field--full">
+            <label class="field__label" for="menu-name"><span data-i18n="menus.fName"></span><span class="field__req" aria-hidden="true">*</span></label>
+            <input class="control" id="menu-name" name="name" type="text" maxlength="80" dir="auto" required aria-describedby="menu-name-hint" data-i18n-placeholder="menus.namePh">
+            <p class="field__hint" id="menu-name-hint" data-i18n="common.oneLanguage"></p>
+          </div>
+        </div>
+        <p class="field__hint" id="menu-orders-note"></p>
+      </div>
+      <div class="modal__foot">
+        <button type="button" class="btn btn--ghost" data-close data-i18n="common.cancel"></button>
+        <button type="submit" class="btn btn--primary" data-i18n="common.save"></button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Meal summary for the kitchen: portions per day, meal and dish, as Excel (CSV) or PDF. -->
+  <dialog class="modal" id="summary-modal" aria-labelledby="summary-modal-title">
+    <form class="modal__form" id="summary-form" novalidate>
+      <div class="modal__head">
+        <div>
+          <h2 class="modal__title" id="summary-modal-title" data-i18n="msum.title"></h2>
+          <p class="modal__sub" data-i18n="msum.sub"></p>
+        </div>
+        <button type="button" class="icon-btn" data-close data-i18n-aria-label="common.close"><span data-icon="x"></span></button>
+      </div>
+      <div class="modal__body stack">
+        <div class="segmented" role="group" data-i18n-aria-label="msum.quick" id="summary-quick">
+          <button type="button" data-range="tomorrow" aria-pressed="true" data-i18n="msum.tomorrow"></button>
+          <button type="button" data-range="week" aria-pressed="false" data-i18n="msum.week"></button>
+          <button type="button" data-range="last7" aria-pressed="false" data-i18n="msum.last7"></button>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label class="field__label" for="sum-from" data-i18n="msum.from"></label>
+            <input class="control" id="sum-from" name="from" type="date" required>
+          </div>
+          <div class="field">
+            <label class="field__label" for="sum-to" data-i18n="msum.to"></label>
+            <input class="control" id="sum-to" name="to" type="date" required>
+          </div>
+        </div>
+        <div id="summary-preview" role="status"></div>
+      </div>
+      <div class="modal__foot">
+        <button type="button" class="btn btn--ghost" data-close data-i18n="common.cancel"></button>
+        <div class="modal__foot-group">
+          <button type="button" class="btn btn--secondary" data-export="csv"><span data-icon="download"></span><span data-i18n="export.csv"></span></button>
+          <button type="button" class="btn btn--primary" data-export="pdf"><span data-icon="file"></span><span data-i18n="export.pdf"></span></button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
